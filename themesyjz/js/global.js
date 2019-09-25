@@ -278,6 +278,10 @@
     };
     quantity();
 
+    $('.yjz-yd-header-licon').on('click', function (){
+        javascript:history.go(-1);
+	});
+
 })( jQuery );
 
 
