@@ -54,30 +54,33 @@
             });
 
 	    });
-    	
-		 
+
+
 		 $('.wcvacolororimage').on('change',function(){
-        
+
+
+		 	var parentdiv = $(this).parent().parent().parent();
 		   if (this.value == "Image") {
 		 
-		     $(this).closest("div").find(".wcvacolordiv").hide();
-			 $(this).closest("div").find(".wcvatextblockdiv").hide();
-		     $(this).closest("div").find(".wcvaimagediv").show();
+		     $(parentdiv).find(".wcvacolordiv").hide();
+		     $(parentdiv).find(".wcvatextblockdiv").hide();
+		     $(parentdiv).find(".wcvaimagediv").show();
 		 
 		    } else if (this.value == "Color") {
-		     
-		     $(this).closest("div").find(".wcvaimagediv").hide();
-		     $(this).closest("div").find(".wcvatextblockdiv").hide();
-			 $(this).closest("div").find(".wcvacolordiv").show();
+
+               $(parentdiv).find(".wcvaimagediv").hide();
+               $(parentdiv).find(".wcvatextblockdiv").hide();
+               $(parentdiv).find(".wcvacolordiv").show();
 		  
 		    } else if (this.value == "textblock") {
-			 
-			 $(this).closest("div").find(".wcvaimagediv").hide();
-		     $(this).closest("div").find(".wcvacolordiv").hide();
-			 $(this).closest("div").find(".wcvatextblockdiv").show();
-			
+               $(parentdiv).find(".wcvaimagediv").hide();
+               $(parentdiv).find(".wcvacolordiv").hide();
+               $(parentdiv).find(".wcvatextblockdiv").show();
 			}
-         
+
+			var token = $(this).attr("data-token");
+		   $("select[data-token='"+token+"']").val($(this).val());
+
 		});
 
 
