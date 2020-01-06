@@ -751,7 +751,7 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
     max-width: 650px;
     width: 100%;
 }
-.filt_order_status_wrap{width: 500px;padding: 5px !important;margin: 58px auto 20px auto !important;font-size: 12px;}
+.filt_order_status_wrap{width: 500px;padding: 5px !important;margin: 58px auto 20px auto !important;font-size: 12px;box-shadow: 0px 0px 4px 2px #dfdfdf;}
 .filt_order_status_wrap ul{ list-style-type:none; display: flex; flex-direction: row; justify-content: center;flex-wrap: nowrap;padding: 0;margin: 0;}
 .filt_order_status_wrap ul li{ list-style-type:none; padding: 10px 15px;flex-grow: 1;text-align: center; cursor: pointer}
 .filt_order_status_wrap ul li.active{color:#226dff;border-bottom: 2px solid #226dff;}
@@ -885,8 +885,8 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
     background: #f7f7f7d6;
 }
 .woocommerce {  margin: auto; width: 100%}
-.woocommerce-table-order-img {float: left; width: 100px; text-align: center;}
-.woocommerce-table-order-detals {float: left; text-align: left; padding-left: 20px;padding-top: 10px;padding-right: 50px;}
+.woocommerce-table-order-img {float: left; width: 80px; text-align: center;}
+.woocommerce-table-order-detals {float: left; text-align: left; padding-left: 20px;padding-top: 10px;width: calc(100% - 100px);}
 .woocommerce-pagination .woocommerce-button--next .yjz_float_left{ float: left;}
 .yjz_float_right{ float: right;}
 .woocommerce-column--billing-addres{
@@ -1020,19 +1020,20 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
     html[lang=zh-CN] body,html[lang=zh-CN] button,html[lang=zh-CN] input,html[lang=zh-CN] select,html[lang=zh-CN] textarea{font-family:'helvetica neue',tahoma,'PingFang SC','microsoft yahei',arial,'hiragino sans gb',sans-serif;font-size: 12px;}
     .woocommerce-MyAccount-navigation{ display: none}
     /*.woocommerce-MyAccount-content .yjz-order-wrap-head{ display: none;}*/
-    .woocommerce-MyAccount-content .yjz-order-wrap-head{position: inherit;background: #2a94f2;color: #fff; height: 65px;}
+    .woocommerce-MyAccount-content .yjz-order-wrap-head{background: #2a94f2;color: #fff; height: 50px;top: 0px;}
     .yjz-order-wrap-head-userinfo i{color: #fff;font-size: 16px }
     .yjz-order-wrap-head-userinfo a{color: #fff; text-decoration: none;}
     .woocommerce-MyAccount-content .yjz-order-wrap-head .yjz-order-wrap-head-logo img{ display: none;}
     .woocommerce-MyAccount-content .yjz-order-wrap-head .yjz-order-wrap-head-logo { left: 10px;font-size: 12px;font-weight: normal;}
     .filt_order_status_wrap ul li{ padding: 2px 0px!important;font-size: 12px;}
     .filt_order_status_wrap{ width: 100%;margin: 40px auto 20px auto !important;}
-    .woocommerce-MyAccount-box:not(.woocommerce-orders-wrap):not(.myaddresses){margin: 50px auto 30px auto!important;}
+    .woocommerce-MyAccount-box:not(.woocommerce-orders-wrap):not(.myaddresses){margin: 50px auto 70px auto!important;}
     .woocommerce-orders-wrap.woocommerce-MyAccount-box {margin: 30px auto 30px auto!important;}
     .woocommerce-MyAccount-box .woocommerce-address-head{font-size: 12px;height: 35px;line-height: 35px;}
     .woocommerce-MyAccount-content .woocommerce-orders-table thead{display: none;}
     .woocommerce-MyAccount-content .woocommerce-orders-table tr.woocommerce-orders-table__row {
         position: relative;
+        display: block;
         border-bottom: 1px solid rgba(223, 216, 216, 0.83);
         height: 110px;
         font-size: 12px;
@@ -1156,4 +1157,10 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 
 .woocommerce-orders-table__row--status-cancelled.order {
     display: none;
+}
+.woocommerce-terms-and-conditions-wrapper {
+    margin-bottom: 10px;
+}
+.cart.woocommerce-cart-form__contents {
+    margin-bottom: 100px;
 }
