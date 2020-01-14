@@ -61,10 +61,10 @@ jQuery( function( $ ) {
 				get_qr_code( scanType );
 			} );
 
-			window.registerScanSuccessListener( handleScanSuccess );
-			window.registerScanFailureListener( handleScanFailure );
-			window.registerBeatSuccessListener( handleBeatSuccess );
-			window.registerBeatFailureListener( handleBeatFailure );
+			// window.registerScanSuccessListener( handleScanSuccess );
+			// window.registerScanFailureListener( handleScanFailure );
+			// window.registerBeatSuccessListener( handleBeatSuccess );
+			// window.registerBeatFailureListener( handleBeatFailure );
 		}
 
 		function get_qr_code( scanType ) {
