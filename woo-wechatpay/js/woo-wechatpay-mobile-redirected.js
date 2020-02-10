@@ -13,7 +13,6 @@ jQuery( function( $ ) {
             };
 
         $( '.woowechatpay-loader' ).hide();
-        alert('功能待升级');
 
         WeixinJSBridge.invoke( api, params, function( res ) {
             wechatData.debug && window.alert( 'Debug mode active - redirection may fail.' );

@@ -1270,9 +1270,8 @@
     });
 
 
-    //订单列表页
-
-    if($("#yjz_post_thumbnail_url").length>0)
+    //微信分享页面
+    if($("#open_wx_share_function").length>0)
     {
         setTimeout( function () {
             wx_share_init();
@@ -1308,7 +1307,7 @@
 
 
         }//单品价格
-        else if(typeof jQuery(".yjzan-widget-woocommerce-product-price .woocommerce-Price-amount") !=='undefined' )
+        else if(typeof jQuery(".yjzan-widget-woocommerce-product-price .woocommerce-Price-amount") !=='undefined' && jQuery(".yjzan-widget-woocommerce-product-price .woocommerce-Price-amount").length>0 )
         {
             var display_price =  jQuery(".yjzan-widget-woocommerce-product-price .woocommerce-Price-amount")[0].innerText.replace(/¥/, "");
             if(jQuery(".yjzan-widget-woocommerce-product-price .woocommerce-Price-amount").length >1)
@@ -1367,32 +1366,59 @@
 
     $(".weixinshare").click(function(){
 
-        $("#share-pic-view-warp").css('display','flex');
 
-        if( typeof $("#share-pic").attr("src") =='undefined' ||$("#share-pic").attr("src")=="")
+        var u = navigator.userAgent;
+        console.log(u);
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        var is_pc = $(window).width()>1024;
+
+        $("#share-pic-view-warp").css('display','flex');
+        $(".loader-icon-wrap").show();
+        $("#share-pic-view").show();
+        $("#share-pic").hide();
+
+        if(typeof $("#share-pic").attr("src") !=='undefined' && $("#share-pic").attr("src")!=="")
         {
-            html2canvas(document.querySelector("#share-pic-view")).then(canvas => {
-                $("#share-pic").hide();
-            $("#share-pic").attr("src",canvas.toDataURL("png"));
-            $("#share-pic").load(function(){
-                $(".loader-icon-wrap").hide();
-                $("#share-pic-view").hide();
-                $("#share-pic").show(200);
-            });
-        });
-        }else {
             $(".loader-icon-wrap").hide();
+            $("#share-pic-view").hide();
+            $("#share-pic").show();
+        }else
+        {
+            if(isiOS)
+            {
+                window.pageYOffset = -10;
+                document.documentElement.scrollTop = -10;
+                document.body.scrollTop = -10;
+            }else{
+                window.pageYOffset = 0;
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            }
+            setTimeout( function () {
+
+                var opts = {
+                    useCORS:true,
+                    allowTaint: true,
+                };
+
+                html2canvas(document.querySelector("#share-pic-view"), opts).then(canvas => {
+                    $("#share-pic").hide();
+                $("#share-pic").attr("src",canvas.toDataURL("image/png"));
+                $("#share-pic").load(function(){
+                    $(".loader-icon-wrap").hide();
+                    $("#share-pic-view").hide();
+                    $("#share-pic").show(200);
+                });
+            });
+            }, 500 );
         }
+
     });
 
     $(".share-pic").click(function(event){
         event.stopPropagation();
     });
-
-    // $(".wx-yjz-share-cqcode").click(function(){
-    //     console.log('12345');
-    // });
-
 
     /**this is end**/
 })( jQuery );
