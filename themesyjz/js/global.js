@@ -463,6 +463,31 @@
 
         }else if($(obj).hasClass('single_add_to_cart_button'))
         {
+            if($(window).width()<900)
+            {
+                //移动端显示选择项目
+                if($("#cart_mobile_mark_div").is(':hidden'))
+                {
+                    $("#cart_mobile_mark_div").show();
+                    $(".yjzan-add-to-cart.yjzan-product-variable table.variations").show();
+                    $(".yjzan-add-to-cart.yjzan-product-variable .woocommerce-variation.single_variation").removeClass("single_variation_hide");
+                    $(".var-cart-close-btn").show();
+                    $(".cart-thumb-img").show();
+                    var bgUrl = jQuery(jQuery(".yjzan-carousel-image")[0]).css("background-image");
+                    if(typeof bgUrl == 'undefined' || bgUrl=='')
+                    {
+                        var bgUrl = jQuery(".wp-post-image").attr("src");
+                        bgUrl = !(typeof bgUrl == 'undefined' || bgUrl=='')? bgUrl: 'https://res.cloudinary.com/demo/image/fetch/w_150,f_auto,q_auto:low/https%3A%2F%2Fyjzcdn.top%2Ffile%2Fyjzan-web%2F2019%2F06%2F19%2F2FCAF1F3CC7707007A38C4DF86E5B2EB.jpg':
+                    }
+
+
+                    bgUrl = bgUrl.replace('/765','/150')
+                    $(".cart-thumb-img").css("background-image",bgUrl);
+                    return false;
+                }
+
+            }
+
 
             if ($(".variations_form").length) {
                 variation_data = "variation_id="+$("input[name='variation_id']").val();
@@ -486,7 +511,8 @@
                 for(var entry in attrs) {
                     if(attrs[entry]=='')
                     {
-                        yjzSendInfo('请选择产品规格');
+
+                        yjzSendInfo('请选择产品规格3');
                         yjz_product_cart_processing = 0;
                         return false;
                     }
