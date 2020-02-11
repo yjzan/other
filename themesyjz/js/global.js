@@ -477,11 +477,11 @@
                     if(typeof bgUrl == 'undefined' || bgUrl=='')
                     {
                         var bgUrl = jQuery(".wp-post-image").attr("src");
-                        bgUrl = !(typeof bgUrl == 'undefined' || bgUrl=='')? bgUrl: 'https://res.cloudinary.com/demo/image/fetch/w_150,f_auto,q_auto:low/https%3A%2F%2Fyjzcdn.top%2Ffile%2Fyjzan-web%2F2019%2F06%2F19%2F2FCAF1F3CC7707007A38C4DF86E5B2EB.jpg':
+                        bgUrl = !(typeof bgUrl == 'undefined' || bgUrl=='')? bgUrl : 'https://res.cloudinary.com/demo/image/fetch/w_150,f_auto,q_auto:low/https%3A%2F%2Fyjzcdn.top%2Ffile%2Fyjzan-web%2F2019%2F06%2F19%2F2FCAF1F3CC7707007A38C4DF86E5B2EB.jpg';
                     }
 
 
-                    bgUrl = bgUrl.replace('/765','/150')
+                    bgUrl = bgUrl.replace('/765','/150');
                     $(".cart-thumb-img").css("background-image",bgUrl);
                     return false;
                 }
