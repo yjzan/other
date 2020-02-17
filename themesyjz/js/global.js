@@ -463,7 +463,7 @@
 
         }else if($(obj).hasClass('single_add_to_cart_button'))
         {
-            if($(window).width()<900)
+            if($(window).width()<900 && $(".variations_form").length>0)
             {
                 //移动端显示选择项目
                 if($("#cart_mobile_mark_div").is(':hidden'))
@@ -478,8 +478,8 @@
                     {
                         var bgUrl = jQuery(".wp-post-image").attr("src");
                         bgUrl = !(typeof bgUrl == 'undefined' || bgUrl=='')? bgUrl : 'https://res.cloudinary.com/demo/image/fetch/w_150,f_auto,q_auto:low/https%3A%2F%2Fyjzcdn.top%2Ffile%2Fyjzan-web%2F2019%2F06%2F19%2F2FCAF1F3CC7707007A38C4DF86E5B2EB.jpg';
+                        bgUrl = 'url("'+bgUrl+'")';
                     }
-
 
                     bgUrl = bgUrl.replace('/765','/150');
                     $(".cart-thumb-img").css("background-image",bgUrl);
@@ -512,7 +512,7 @@
                     if(attrs[entry]=='')
                     {
 
-                        yjzSendInfo('请选择产品规格3');
+                        yjzSendInfo('请选择产品规格');
                         yjz_product_cart_processing = 0;
                         return false;
                     }
@@ -847,10 +847,16 @@
             dls[i].mark=false;	//给每一行的dl标签添加一条属性，用于对应下面的dd标签。我们约定如果这个属性的值为true表示对应的标签没有创建。如果值为false表示对应的标签已经创建了
             select_yjz_tag(i,dls,selected);
         }
+
+        $(".select_tag_all").click(function(){
+            yjzProductBoxInit();
+            get_product_data(product_list_swiper,'');
+        });
+
     }
 
     function select_yjz_tag(n,dls,selected) {
-        var dds = dls[n].querySelectorAll('.yjz-select-tag dd');
+        var dds = dls[n].querySelectorAll('.yjz-select-tag dd ,.yjz-select-tag dl dt ');
         var prev=null;
         var dd=null;	//每一行都需要创建一个dd标签，放到这里是为了如果标签已经被创建了，通过这个变量能够找到这个标签
 
@@ -863,6 +869,10 @@
                 $(this).addClass('active');
 
                 var content = $(this).find("span").html();
+
+                if(typeof content == 'undefined')
+                    content = $(this).html();
+
                 //   $(selected).append("<dd>"+this.innerHTML+"</dd>");
                 dd=document.createElement('dd');
                 dd.innerHTML=content;
@@ -877,23 +887,19 @@
                     $('.yjz-select-tag .select').append('<span class="select_tag_all">全部</span>');
 
                     $('.yjz-select-tag dd').removeClass('active');
-                    $('#yjz-product-ul').html('');
-                    $(".yjz-pagination ul.page-numbers").html('');
+                    yjzProductBoxInit();
                     $('.yd-load-product-data-bt').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>');
 
-                    $("#yjzp_current_page").val(0);
                     $(".yjz-pagination ul.page-numbers").html('');
                     get_product_data(product_list_swiper,$("#yjzp_term_ids").val());
 
                 };
                 dd.appendChild(span);
                 //加载数据
-                $('#yjz-product-ul').html('');
-                $(".yjz-pagination ul.page-numbers").html('');
+                $("#yjzp_current_page").val(0);
                 $('.yd-load-product-data-bt').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>');
 
                 var tagid = $(this).attr("tagid")
-                $("#yjzp_current_page").val(0);
                 $(".yjz-pagination ul.page-numbers").html('');
 
                 get_product_data(product_list_swiper,tagid);
@@ -988,10 +994,22 @@
                     },//touchEnd
                 },//on end...
             });
+
+            product_h_tag_swiper = new Swiper('.yjz-product-left-box', {
+                direction: 'vertical',
+                slidesPerView: 'auto',
+                freeMode: true, //slide会根据惯性滑动可能不止一格且不会贴合。
+                on: {
+                    touchMove: function (event) {
+                        event.stopPropagation();
+                    }, touchEnd: function (event) {
+                        event.stopPropagation();
+                    },//touchEnd
+                },//on end...
+            });
+
         }
     },400);
-
-
 
 
 
@@ -1003,7 +1021,7 @@
         if(loading_product_data==1)
             return ;
 
-        if(product_list_load_all==1 &&tag_id==product_list_current_tagid)
+        if(product_list_load_all==1 &&tag_id==product_list_current_tagid && $(window).width()<=1024)
         {
             $('.yd-load-product-data-bt').html('已经到底了！');
             return ;
@@ -1042,7 +1060,8 @@
         {
             $('.yd-load-product-data-bt').html('已经到底了！');
             loading_product_data=0;
-            product_list_load_all==1
+            if($(window).width()<=1024)
+                product_list_load_all==1
             return;
         }else
         {
@@ -1190,12 +1209,9 @@
                 }
             });
 
-            if($("#yjzp_current_page").val()!=c_page)
-            {
-                var page = c_page-1 ;
-                $("#yjzp_current_page").val(page);
-                var rs = get_product_data(product_list_swiper,product_list_current_tagid);
-            }
+            var page = c_page-1 ;
+            $("#yjzp_current_page").val(page);
+            var rs = get_product_data(product_list_swiper,product_list_current_tagid);
 
         });
     }
@@ -1219,12 +1235,17 @@
     });
 
 
-
-    //产品tabs 竖型标签点击
-    $(".yjz-product-left-box .p-child-tag").on("click",function(){
+    function yjzProductBoxInit()
+    {
         $("#yjzp_current_page").val(0);
         $('#yjz-product-ul').html('');
         $(".yjz-pagination ul.page-numbers").html('');
+        product_list_load_all = 0;
+    }
+
+    //产品tabs 竖型标签点击
+    $(".yjz-product-left-box .p-child-tag").on("click",function(){
+        yjzProductBoxInit();
         get_product_data(product_list_swiper,$(this).attr("tagid"));
         $(".yjz-product-left-box .p-child-tag.active").removeClass("active");
         $(this).addClass("active");
@@ -1237,9 +1258,7 @@
         $(".yjz-h-tabs-tag .swiper-slide.active").removeClass("active");
         $(".yjz-product-left-box .p-child-tag.active").removeClass("active");
         $(this).parent().addClass("active");
-        $("#yjzp_current_page").val(0);
-        $('#yjz-product-ul').html('');
-        $(".yjz-pagination ul.page-numbers").html('');
+        yjzProductBoxInit();
         if($(this).attr("tagid")=='all' || typeof  $(this).attr("tagid") == 'undefined')
         {
             $(".yjz-product-left-box .p-child-tag").show();
@@ -1255,6 +1274,18 @@
             get_product_data(product_list_swiper,$(this).attr("tag_child_id"));
         }
     });
+
+
+    $(".yjz-select-tag dl dt").on("click",function () {
+        yjzProductBoxInit();
+        var ids = $(this).attr("tag_child_id");
+        get_product_data(product_list_swiper,ids);
+    });
+
+
+
+
+
 
 
     //jQuery(".yjz_product_detail[data-id='04cf420']").html()
@@ -1328,10 +1359,6 @@
             var display_regular_price =  jQuery(".variations_form.cart").data('product_variations')[target_index]['display_regular_price']//原价
             var display_price =   jQuery(".variations_form.cart").data('product_variations')[target_index]['display_price']//实际价
 
-            $(".share-pic-view #salesPriceText").text(display_price);
-            $(".share-pic-view #originPriceText").text(display_regular_price);
-
-
         }//单品价格
         else if(typeof jQuery(".yjzan-widget-woocommerce-product-price .woocommerce-Price-amount") !=='undefined' && jQuery(".yjzan-widget-woocommerce-product-price .woocommerce-Price-amount").length>0 )
         {
@@ -1353,6 +1380,23 @@
             $(".share-pic-view #salesPriceText").remove();
             $(".share-pic-view .originPrice").remove();
         }
+
+        if(display_price!='' && typeof display_price !=='undefined')
+        {
+            $(".share-warp-price .salesPrice").show();
+            $(".share-pic-view #salesPriceText").text(display_price);
+        }
+        else
+            $(".share-warp-price .salesPrice").hide();
+
+        if(display_regular_price!=''&& typeof display_regular_price !=='undefined')
+        {
+            $(".share-warp-price .originPrice").show();
+            $(".share-pic-view #originPriceText").text(display_regular_price);
+        }else
+            $(".share-warp-price .originPrice").hide();
+
+
 
         var canvas = document.createElement('CANVAS'),
             ctx = canvas.getContext('2d'),

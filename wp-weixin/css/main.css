@@ -124,7 +124,6 @@ body.wechat-layout.blank {
 .wechat-layout .desktop-qr-content,
 .wechat-layout .desktop-account-content {
 	margin-bottom: 30px;
-	background-color: #FFFFFF;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -155,8 +154,6 @@ body.wechat-layout.blank {
 	margin: 0 auto;
 	display: block;
 	visibility: hidden;
-	width: 220px;
-	height: 220px;
 }
 
 .wechat-layout .desktop-qr-content .message {
@@ -204,7 +201,7 @@ body.wechat-layout.blank {
 	margin: 0 auto;
 	max-width: 320px;
 	position: absolute;
-	top: 50%;
+	top: 160px;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }

@@ -1,5 +1,5 @@
 html{font-family:'helvetica neue',tahoma,'PingFang SC','microsoft yahei',arial,'hiragino sans gb',sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
-body{margin:0;overflow-x: hidden;-webkit-tap-highlight-color: transparent;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+body{margin:0;overflow-x: hidden;-webkit-tap-highlight-color: transparent;-webkit-tap-highlight-color:rgba(0,0,0,0);background-color: #fff;}
 article,aside,footer,header,nav,section{display:block}
 h1{font-size:2em;margin:0}
 figcaption,figure,main{display:block}
@@ -709,7 +709,7 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 .yjz-select-tag{width:100%;max-width:1400px;background:rgba(255,255,255,.8);box-shadow:0 0 10px rgba(73,66,66,.1);margin:0 auto 6px auto;border:1px solid #e5e5e5;position:relative;font-size: 12px;}
 .yjz-select-tag dl{height:auto;min-height:50px;line-height:50px;border-bottom:1px dashed #dadada;margin:0 20px;transition: all .2s ease-in-out;}
 .yjz-select-tag dl:not(.select){height:50px;line-height:50px;}
-.yjz-select-tag dt{float:left;color:#8a8a8a}
+.yjz-select-tag dt{float:left;color:#8a8a8a;cursor: pointer;}
 .yjz-select-tag dd{float:left;color:#252525;margin:0 10px;font-size:12px;cursor:pointer}
 .yjz-select-tag dd.active{color:#c4284d;font-weight:700}
 .yjz-select-tag dl.select{background:#efefef;margin:0;padding:0 20px;border-bottom-width: 0px;}
@@ -1813,4 +1813,14 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 .woocommerce-variation-description {
     font-size: 11px;
     color:#666;
+}
+
+.yjzan-button.yjzan-cart-btn{
+    padding: 3px;
+    border-radius: 10px;
+    border: none!important;
+}
+
+.yjz-order-receript .order_details {
+    list-style: none !important;
 }
