@@ -430,7 +430,9 @@ p>embed:only-child,p>iframe:only-child,p>object:only-child{margin-bottom:0}
 li.woocommerce-MyAccount-navigation-link i{font-size:15px!important;margin-right:13px}
 .woocommerce-MyAccount-navigation{width:167px;border:1px solid #bbb;
     padding: 105px 0px;;text-align: left;min-height: 100vh;
-    height: auto;background: url(https://media.yjzan.com/pic/D562BAD910DE0F00D8A192D2885D35C9) left bottom no-repeat #5b93ff;
+    height: auto;
+    /*background: url(https://media.yjzan.com/pic/D562BAD910DE0F00D8A192D2885D35C9) left bottom no-repeat #5b93ff;*/
+    background:#5b93ff;
     position: fixed;
     top: 0;
     left: 0;
@@ -1386,7 +1388,7 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
     position: absolute;
     top: 57px;
     left: 28px;
-    color: #eee;
+    color: #fff;
 }
 
 .share-pic-view-warp2 .share-wxfriend-tip{
