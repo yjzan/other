@@ -93,9 +93,9 @@
                $(parentdiv).find(".wcvacolordiv").hide();
                $(parentdiv).find(".wcvatextblockdiv").show();
 
-               for(var i=0;i<$(parentdiv).find(".wcvacolordiv").length;i++)
+               for(var i=0;i<$(parentdiv).find(".wcvatextblockdiv").length;i++)
                {
-               		var lbl_txt = $($(parentdiv).find(".wcvatextblockdiv")[0]).find(".wcvaattributetextblock").val();
+               		var lbl_txt = $($(parentdiv).find(".wcvatextblockdiv")[i]).find(".wcvaattributetextblock").val();
                    var temp_html ='<div style="display: inline-block; border: solid 2px white; outline: solid 1px #9C9999; height: auto; width: auto; max-width: 100%; background-color: #eee;color: black; border-radius: 3px; font-size: 14px!important;font-weight: 500; padding: 3px 3px;">'+lbl_txt+'</div>';
                      $($(parentdiv).find(".accordion-header")[i]).find('.previewdiv').html(temp_html);
                }
@@ -103,7 +103,10 @@
 			}
 
 			var token = $(this).attr("data-token");
-		   $("select[data-token='"+token+"']").val($(this).val());
+
+             $($(parentdiv).find("select[data-token='"+token+"']")).val($(this).val());
+
+		   //$("select[data-token='"+token+"']").val($(this).val());
 
 		});
 

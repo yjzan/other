@@ -1826,3 +1826,49 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 .yjz-order-receript .order_details {
     list-style: none !important;
 }
+
+.products li.product.outofstock a.woocommerce-LoopProduct-link::before
+, .yjz-products-list ul.products li.product a.woocommerce-loop-product__link.outofstock::before
+{
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background: url(https://media.yjzan.com/pic/33AB31893304A44E3770032872B647E1);
+    content: '';
+    left: 0;
+    right: 0;
+    top: 18%;
+    margin: auto;
+    background-repeat: no-repeat;
+    background-size: contain;
+    max-width: 150px;
+    max-height: 150px;
+    background-position: center;
+    opacity: 90%;
+}
+
+.yjz-countdown-title{
+    text-align: left;
+    padding-bottom: 6px;
+    display: none;
+}
+
+.outofstockbtn {
+    background:#999;
+    width: 100%;
+    max-width: 300px;
+    height: 40px;
+    letter-spacing: 5px;
+}
+
+@-webkit-keyframes yjzfadein {
+    0% {
+        opacity: 1; /*初始状态 透明度为0*/
+    }
+    50% {
+        opacity: 1; /*中间状态 透明度为0*/
+    }
+    100% {
+        opacity: 0; /*结尾状态 透明度为1*/
+    }
+}
