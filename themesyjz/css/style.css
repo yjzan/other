@@ -629,7 +629,7 @@ li.woocommerce-MyAccount-navigation-link i{font-size:15px!important;margin-right
 .noticejs .info .noticejs-content{visibility:visible}
 .noticejs .warning{background-color:#3e3c3c}
 .noticejs .warning .noticejs-heading{background-color: #807e7e;color:#fff;padding:10px}
-.noticejs .warning .noticejs-body{color:#fff;padding:10px}
+.noticejs .warning .noticejs-body{color:#fff;padding:13px 10px}
 .noticejs .warning .noticejs-body:hover{visibility:visible!important}
 .noticejs .warning .noticejs-content{visibility:visible}
 
@@ -646,7 +646,7 @@ li.woocommerce-MyAccount-navigation-link i{font-size:15px!important;margin-right
 .noticejs .info .noticejs-progressbar{width:100%;background-color:#3ea2ff;margin-top:-1px}
 .noticejs .info .noticejs-progressbar .noticejs-bar{width:100%;height:5px;background:#067cea}
 
-.noticejs .warning .noticejs-progressbar{width:100%;background-color:#807e7e;margin-top:-1px}
+.noticejs .warning .noticejs-progressbar{width:100%;background-color:#807e7e;margin-top:-1px;display: none;}
 .noticejs .warning .noticejs-progressbar .noticejs-bar{width:100%;height:5px;background:#3e3c3c}
 
 .noticejs .error .noticejs-progressbar{width:100%;background-color:#e74c3c;margin-top:-1px}
@@ -659,7 +659,7 @@ li.woocommerce-MyAccount-navigation-link i{font-size:15px!important;margin-right
 }
 @keyframes noticejs-modal-out{to{opacity:0}
 }
-.noticejs{position:fixed;z-index:10050;width:320px}
+.noticejs{position:fixed;z-index:10050;max-width:320px;width: 200px;text-align: center;}
 .noticejs ::-webkit-scrollbar{width:8px}
 .noticejs ::-webkit-scrollbar-button{width:8px;height:5px}
 .noticejs ::-webkit-scrollbar-track{border-radius:10px}
@@ -1828,7 +1828,8 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 }
 
 .products li.product.outofstock a.woocommerce-LoopProduct-link::before
-, .yjz-products-list ul.products li.product a.woocommerce-loop-product__link.outofstock::before
+,.products li.product a.woocommerce-LoopProduct-link.outofstock::before
+, .products li.product a.woocommerce-loop-product__link.outofstock::before
 {
     position: absolute;
     width: 80%;
@@ -1871,4 +1872,21 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
     100% {
         opacity: 0; /*结尾状态 透明度为1*/
     }
+}
+
+.productlist-skin-icon .yjz-add-cart-icon.outofstock {
+    color:#aaa!important;
+}
+
+.yjz_copy_right_desc{
+    color: #bbb;
+    text-align: center;
+    font-size: 12px;
+}
+.yjz_copy_right_desc .site_name{
+    color: #aaa;
+}
+
+.yjzan-main-swiper .swiper-slide{
+    background-color: #436fbf;
 }
