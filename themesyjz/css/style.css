@@ -1491,8 +1491,7 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
     font-size: 12px;
     background:#fff;
     padding: 10px;
-    border: 8px solid #feb912;
-    width: 80%;
+    width: 70%;
 }
 
 
@@ -1889,4 +1888,13 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 
 .yjzan-main-swiper .swiper-slide{
     background-color: #436fbf;
+}
+
+.product.outofstock  .yjz-add-to-carp-wrap .button{
+    background:rgba(0, 0, 0, 0)!important;
+}
+
+.product.outofstock .yjz-add-to-carp-wrap .button i
+{
+    color:#ccc!important;
 }
