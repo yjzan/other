@@ -1831,8 +1831,8 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 , .products li.product a.woocommerce-loop-product__link.outofstock::before
 {
     position: absolute;
-    width: 80%;
-    height: 80%;
+    width: 50%;
+    height: 50%;
     background: url(https://media.yjzan.com/pic/33AB31893304A44E3770032872B647E1);
     content: '';
     left: 0;
@@ -1844,7 +1844,7 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
     max-width: 150px;
     max-height: 150px;
     background-position: center;
-    opacity: 90%;
+    opacity: 0.6;
 }
 
 .yjz-countdown-title{
@@ -1855,7 +1855,7 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 
 .outofstockbtn {
     background:#999;
-    width: 100%;
+    width: 200px;
     max-width: 300px;
     height: 40px;
     letter-spacing: 5px;
@@ -1897,4 +1897,8 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 .product.outofstock .yjz-add-to-carp-wrap .button i
 {
     color:#ccc!important;
+}
+
+.woocommerce-customer-details address .woocommerce-customer-details--email{
+    display: none;
 }

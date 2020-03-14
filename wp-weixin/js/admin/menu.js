@@ -313,10 +313,25 @@ jQuery( document ).ready( function( $ ) {
         if($(this).attr("checked")==true){
 			$(".wp_weixin-yl_mchId-field").show();
 			$(".wp_weixin-yl_key-field").show();
+
+			//隐藏
+			$(".wp_weixin-mch_appid-field").hide();
+			$(".wp_weixin-mch_id-field").hide();
+			$(".wp_weixin-mch_key-field").hide();
+			$(".wp_weixin-pem-field").hide();
+			$(".wp_weixin-pem_path-field").hide();
+			$(".wp_weixin-pem_path-field").hide();
         }else
 		{
             $(".wp_weixin-yl_mchId-field").hide();
             $(".wp_weixin-yl_key-field").hide();
+			//显示
+            $(".wp_weixin-mch_appid-field").show();
+            $(".wp_weixin-mch_id-field").show();
+            $(".wp_weixin-mch_key-field").show();
+            $(".wp_weixin-pem-field").show();
+            $(".wp_weixin-pem_path-field").show();
+            $(".wp_weixin-pem_path-field").show();
 		}
 	});
 } );
