@@ -401,11 +401,11 @@
 
     //加入购物车--------------------------------------------------------------------------------------------------------------------
     $(".single_add_to_cart_button, .add_to_cart_button , .yjz_cart_add_btn").on("click", function () {
-       if($(this).hasClass("disabled"))
-       {
-           yjzSendInfo('该产品库存不足');
-           return ;
-       }
+        if($(this).hasClass("disabled"))
+        {
+            yjzSendInfo('该产品库存不足');
+            return ;
+        }
 
         return product_add_to_cart(this);
     });
@@ -556,7 +556,7 @@
             "action=yjz_add_to_cart&product_id="+product_id_Val+"&quantity="+quantity_Val+"&"+variation_data
         ).done(function( data ) {
             if ( data && data.status==1 ) {
-               var has_parent = window.top!=window.self;
+                var has_parent = window.top!=window.self;
 
                 update_cart_content(data,null);
                 if(window.top!=window.self)
@@ -609,7 +609,7 @@
             $('#yjz_cart_subtotal .woocommerce-Price-amount',target).html(amount[0]+'</span>'+data.subtotal);
         }
 
-         quantity();
+        quantity();
 
         jQuery(".remove-cart-item").on("click", function () {
             setCartItemQuantity(this,0);
@@ -946,91 +946,91 @@
     var product_list_load_all= 0; //已加载所有数据
     var box_moving = 0;
 
-        setTimeout(function(){
+    setTimeout(function(){
 
-            if($(window).width()<=1024)
-            {
-                $("#yjz-product-tag-icon").attr('data-statu',0);
-                $("#yjz-product-tag-icon").css('transform','rotate(90deg)');
-            }
+        if($(window).width()<=1024)
+        {
+            $("#yjz-product-tag-icon").attr('data-statu',0);
+            $("#yjz-product-tag-icon").css('transform','rotate(90deg)');
+        }
 
-            if( typeof Swiper !== "undefined") {
+        if( typeof Swiper !== "undefined") {
 
-                product_list_swiper = new Swiper('.yjz-product-swp-container', {
-                    direction: 'vertical',
-                    slidesPerView: 'auto',
-                    mousewheelControl: true,
-                    freeMode: true,
-                    on: {
-                        touchMove: function (event) {
-                            event.stopPropagation();
+            product_list_swiper = new Swiper('.yjz-product-swp-container', {
+                direction: 'vertical',
+                slidesPerView: 'auto',
+                mousewheelControl: true,
+                freeMode: true,
+                on: {
+                    touchMove: function (event) {
+                        event.stopPropagation();
 
-                            var start_p = product_list_swiper.translate;
-                            if (box_moving == 1 || $(window).width() > 1024)
-                                return;
+                        var start_p = product_list_swiper.translate;
+                        if (box_moving == 1 || $(window).width() > 1024)
+                            return;
 
-                            setTimeout(function () {
-                                var end_p = product_list_swiper.translate;
-                                box_moving = 1;
-                                if (end_p < start_p) {
-                                    $(".yjzan-widget-yjz-products .yjz-select-tag dl").not(".select").hide();
-                                    $("#yjz-product-tag-icon").attr('data-statu', 0);
-                                    $("#yjz-product-tag-icon").css('transform', 'rotate(90deg)');
-                                }
-                                setTimeout(function () {
-                                    box_moving = 0;
-                                }, 200);
-                            }, 30);
-
-                        }, touchEnd: function (event) {
-                            //你的事件
-                            event.stopPropagation();
-                            if ($(window).width() > 1024)
-                                return;
-
-                            var _viewHeight = jQuery('.yjz-product-swp-container .swiper-wrapper')[0].offsetHeight;
-                            var _contentHeight = jQuery('.yjz-product-swp-container .swiper-slide')[0].offsetHeight;
-
-                            //上拉加载
-                            if (product_list_swiper.translate <= _viewHeight - _contentHeight + 50 && product_list_swiper.translate < 0) {
-                                $(".yd-load-product-data-bt").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>   正在加载...');
-                                var rs = get_product_data(product_list_swiper, product_list_current_tagid);
-                                product_list_swiper.update(); // 重新计算高度;
+                        setTimeout(function () {
+                            var end_p = product_list_swiper.translate;
+                            box_moving = 1;
+                            if (end_p < start_p) {
+                                $(".yjzan-widget-yjz-products .yjz-select-tag dl").not(".select").hide();
+                                $("#yjz-product-tag-icon").attr('data-statu', 0);
+                                $("#yjz-product-tag-icon").css('transform', 'rotate(90deg)');
                             }
+                            setTimeout(function () {
+                                box_moving = 0;
+                            }, 200);
+                        }, 30);
 
-                            return false;
-                        },//touchEnd
-                    },//on end...
-                });
+                    }, touchEnd: function (event) {
+                        //你的事件
+                        event.stopPropagation();
+                        if ($(window).width() > 1024)
+                            return;
 
-                product_h_tag_swiper = new Swiper('.yjz-h-tabs-tag', {
-                    direction: 'horizontal',
-                    slidesPerView: 'auto',
-                    freeMode: true, //slide会根据惯性滑动可能不止一格且不会贴合。
-                    on: {
-                        touchMove: function (event) {
-                            event.stopPropagation();
-                        }, touchEnd: function (event) {
-                            event.stopPropagation();
-                        },//touchEnd
-                    },//on end...
-                });
+                        var _viewHeight = jQuery('.yjz-product-swp-container .swiper-wrapper')[0].offsetHeight;
+                        var _contentHeight = jQuery('.yjz-product-swp-container .swiper-slide')[0].offsetHeight;
 
-                product_v_tag_swiper = new Swiper('.yjz-product-left-box', {
-                    direction: 'vertical',
-                    slidesPerView: 'auto',
-                    freeMode: true, //slide会根据惯性滑动可能不止一格且不会贴合。
-                    on: {
-                        touchMove: function (event) {
-                            event.stopPropagation();
-                        }, touchEnd: function (event) {
-                            event.stopPropagation();
-                        },//touchEnd
-                    },//on end...
-                });
+                        //上拉加载
+                        if (product_list_swiper.translate <= _viewHeight - _contentHeight + 50 && product_list_swiper.translate < 0) {
+                            $(".yd-load-product-data-bt").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>   正在加载...');
+                            var rs = get_product_data(product_list_swiper, product_list_current_tagid);
+                            product_list_swiper.update(); // 重新计算高度;
+                        }
 
-            }
-        },400);
+                        return false;
+                    },//touchEnd
+                },//on end...
+            });
+
+            product_h_tag_swiper = new Swiper('.yjz-h-tabs-tag', {
+                direction: 'horizontal',
+                slidesPerView: 'auto',
+                freeMode: true, //slide会根据惯性滑动可能不止一格且不会贴合。
+                on: {
+                    touchMove: function (event) {
+                        event.stopPropagation();
+                    }, touchEnd: function (event) {
+                        event.stopPropagation();
+                    },//touchEnd
+                },//on end...
+            });
+
+            product_h_tag_swiper = new Swiper('.yjz-product-left-box', {
+                direction: 'vertical',
+                slidesPerView: 'auto',
+                freeMode: true, //slide会根据惯性滑动可能不止一格且不会贴合。
+                on: {
+                    touchMove: function (event) {
+                        event.stopPropagation();
+                    }, touchEnd: function (event) {
+                        event.stopPropagation();
+                    },//touchEnd
+                },//on end...
+            });
+
+        }
+    },400);
 
 
 
@@ -1060,11 +1060,7 @@
         var thumb =  $("#yjzp_thumbnail").val();
         var img_size=  $("#yjzp_image_size").val();
         var query_str=  $("#yjzp_query_str").val();
-		var orderby=  $("#yjzp_orderby").val();
-        var search=  $("#yjzp_search").val();
-        var featured_id=  $("#yjzp_featured_id").val();
-		var variable_id=  $("#yjzp_variable_id").val();
-		
+
         if(tag_id!=null&&tag_id!='')
         {
             term_ids = tag_id;
@@ -1080,7 +1076,7 @@
             return;
         }
 
-        var params = {'action':'yjz_get_products','page':current_page,'page_size':page_size,'term_ids':term_ids,'thumb':thumb,'img_size':img_size,'query_str':query_str ,'orderby':orderby,'search':search,'featuredid':featured_id,'variableid':variable_id};
+        var params = {'action':'yjz_get_products','page':current_page,'page_size':page_size,'term_ids':term_ids,'thumb':thumb,'img_size':img_size,'query_str':query_str};
         if(current_page>end_page)
         {
             $('.yd-load-product-data-bt').html('已经到底了！');
@@ -1151,18 +1147,18 @@
             });
 
 
-            // $(".yjz_product_detail_link").on("click",function () {
-            //     if($(window).width()>1024)
-            //         return true;
-            //      $("#yjz_product_detail_iframe").remove();
-            //     $(".yjz_product_detail").append('<iframe id="yjz_product_detail_iframe"  allowfullscreen="1" src="'+$(this).attr("href")+'" class="yjz_product_detail_iframe"  ></iframe>').show();
-            //     $(".yjz_product_detail .fa.fa-spinner ").show();
-            //     setTimeout( function () {
-            //         $(".yjz_product_detail .fa.fa-spinner ").hide();
-            //     }, 2000 );
-            //
-            //     return false
-            // });
+            $(".yjz_product_detail_link").on("click",function () {
+                if($(window).width()>1024)
+                    return true;
+                $("#yjz_product_detail_iframe").remove();
+                $(".yjz_product_detail").append('<iframe id="yjz_product_detail_iframe"  allowfullscreen="1" src="'+$(this).attr("href")+'" class="yjz_product_detail_iframe"  ></iframe>').show();
+                $(".yjz_product_detail .fa.fa-spinner ").show();
+                setTimeout( function () {
+                    $(".yjz_product_detail .fa.fa-spinner ").hide();
+                }, 2000 );
+
+                return false
+            });
 
         }
 
@@ -1183,7 +1179,7 @@
     {
         if(endPage==1)
         {
-           $(".yjz-pagination ul.page-numbers").html("");
+            $(".yjz-pagination ul.page-numbers").html("");
             return;
         }
 
@@ -1314,18 +1310,19 @@
 
 
     //jQuery(".yjz_product_detail[data-id='04cf420']").html()
-    // $(".yjz_product_detail_link").on("click",function () {
-    //     if($(window).width()>1024)
-    //         return true;
-    //     $("#yjz_product_detail_iframe").remove();
-    //     $(".yjz_product_detail").append('<iframe id="yjz_product_detail_iframe"  allowfullscreen="1" src="'+$(this).attr("href")+'" class="yjz_product_detail_iframe"  ></iframe>').show();
-    //     $(".yjz_product_detail .fa.fa-spinner ").show();
-    //     setTimeout( function () {
-    //         $(".yjz_product_detail .fa.fa-spinner ").hide();
-    //     }, 2000 );
-    //
-    //     return false
-    // });
+    $(".yjz_product_detail_link").on("click",function () {
+        if($(window).width()>1024)
+            return true;
+        $("#yjz_product_detail_iframe").remove();
+        $(".yjz_product_detail").append('<iframe id="yjz_product_detail_iframe"  allowfullscreen="1" src="'+$(this).attr("href")+'" class="yjz_product_detail_iframe"  ></iframe>').show();
+        $(".yjz_product_detail .fa.fa-spinner ").show();
+        setTimeout( function () {
+            $(".yjz_product_detail .fa.fa-spinner ").hide();
+        }, 2000 );
+
+        return false
+    });
+
 
     $("#return_btn_product").on("click",function () {
         $(".yjz_product_detail").hide();
@@ -1358,29 +1355,6 @@
             wx_share_init();
         }, 2000 );
     }
-	
-    setInterval(imglazyload, 1000);
-    function imglazyload() {
-        $('img.lazy:not(.imgfinish)').lazyload({
-            //   container: $('.yjz-piclib-box'),    对指定标签对象内的图片实现效果，表示在此标签中滚动时，触发加载（注意：如果容器未设置height和overfload:auto，那么会默认加载所有图片）
-            threshold: 100,                    //当图片顶部距离显示区域还有100像素时，就开始加载
-            placeholder : "https://media.yjzan.com/pic/3F4FFD8CF5AB6F5839BD69DA3ABCE84D",      // 图片未加载时，占位
-            effect: "fadeIn",               // 图片出现的效果，值有show(直接显示),fadeIn(淡入),slideDown(下拉)
-            effect_speed: 300,                // 效果出现的时间
-            event: 'scroll',                   // 滚动滚轮时触发，可以是：click、mouseover等
-            data_attribute: 'original',        // img标签中保存url的自定义属性，默认：data-original
-            skip_invisible: true,              // 是否跳过已经隐藏的图片（display:none）
-            failure_limit: 20,                  // 由于延迟加载是根据Dom从上到下执行
-            appear: function(){                // 当图片位置刚出现在视图时，触发此事件
-                $(this).addClass('imgfinish');
-            },
-            load: function(){                  // 当图片路径加载之后，触发此事件
-                $(this).addClass('imgfinish');
-            }
-        });
-    }
-
-
 
 
     function wx_share_init() {
@@ -1403,8 +1377,8 @@
                 }
             }
 
-          var display_regular_price =  jQuery(".variations_form.cart").data('product_variations')[target_index]['display_regular_price']//原价
-          var display_price =   jQuery(".variations_form.cart").data('product_variations')[target_index]['display_price']//实际价
+            var display_regular_price =  jQuery(".variations_form.cart").data('product_variations')[target_index]['display_regular_price']//原价
+            var display_price =   jQuery(".variations_form.cart").data('product_variations')[target_index]['display_price']//实际价
 
         }//单品价格
         else if(typeof jQuery(".yjzan-widget-woocommerce-product-price .woocommerce-Price-amount") !=='undefined' && jQuery(".yjzan-widget-woocommerce-product-price .woocommerce-Price-amount").length>0 )
@@ -1515,19 +1489,19 @@
             setTimeout( function () {
 
                 var opts = {
-                   useCORS:true,
+                    useCORS:true,
                     allowTaint: true,
                 };
 
                 html2canvas(document.querySelector("#share-pic-view"), opts).then(canvas => {
                     $("#share-pic").hide();
-                    $("#share-pic").attr("src",canvas.toDataURL("image/png"));
-                    $("#share-pic").load(function(){
-                        $(".loader-icon-wrap").hide();
-                        $("#share-pic-view").hide();
-                        $("#share-pic").show(200);
-                    });
-                 });
+                $("#share-pic").attr("src",canvas.toDataURL("image/png"));
+                $("#share-pic").load(function(){
+                    $(".loader-icon-wrap").hide();
+                    $("#share-pic-view").hide();
+                    $("#share-pic").show(200);
+                });
+            });
             }, 500 );
         }
 

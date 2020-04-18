@@ -61,7 +61,7 @@ h6{color:#333;font-size:15px;font-weight:800}
 p{margin:0;padding:0}
 blockquote{color:#666;font-size:18px;font-style:italic;line-height:1.7;margin:0;overflow:hidden;padding:0}
 blockquote cite{display:block;font-style:normal;font-weight:600;margin-top:.5em}
-address{margin:0 0 1.5em;font-style: normal;}
+/*address{margin:0 0 1.5em;font-style: normal;}*/
 pre{background:#eee;font-family:'helvetica neue',tahoma,'PingFang SC','microsoft yahei',arial,'hiragino sans gb',sans-serif;font-size:15px;line-height:1.6;margin-bottom:1.6em;max-width:100%;overflow:auto;padding:1.6em}
 code,kbd,tt,var{font-family:'helvetica neue',tahoma,'PingFang SC','microsoft yahei',arial,'hiragino sans gb',sans-serif;font-size:15px}
 abbr,acronym{border-bottom:1px dotted #666;cursor:help}
@@ -699,6 +699,10 @@ li.woocommerce-MyAccount-navigation-link i{font-size:15px!important;margin-right
 .mobileSelect .content .panel .shadowMask{position:absolute;top:0;width:100%;height:200px;background:-webkit-gradient(linear,left top,left bottom,from(#fff),color-stop(rgba(255,255,255,0)),to(#fff));background:-webkit-linear-gradient(top,#fff,rgba(255,255,255,0),#fff);background:linear-gradient(to bottom,#fff,rgba(255,255,255,0),#fff);opacity:.9;pointer-events:none}
 .mobileSelect-show{opacity:1;z-index:10000;visibility:visible}
 .mobileSelect-show .content{bottom:0}
+
+.yjznote-animation {
+    animation:noticejs-fadeOut 8s ease-out;animation-fill-mode:forwards;animation-fill-mode:forwards
+}
 /*end mobileSelect*/
 
 /*shop-frontend.css*/
@@ -858,6 +862,7 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 .woocommerce-notices-wrapper .woocommerce-error strong {
     font-weight: normal;
 }
+
 
 .woocommerce-orders-table .woocommerce-orders-table__cell {
     padding-left: 10px;
@@ -1065,7 +1070,7 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 @media (max-width:1024px){
 
     .woocommerce-MyAccount-content .woocommerce-notices-wrapper {
-        margin-top: 15px;
+        margin-top: 40px;
     }
 
     html[lang^=zh-] body,html[lang^=zh-] button,html[lang^=zh-] input,html[lang^=zh-] select,html[lang^=zh-] textarea{font-family:'helvetica neue',tahoma,'PingFang SC','microsoft yahei',arial,'hiragino sans gb',sans-serif;font-size: 12px;}
@@ -1199,11 +1204,19 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
         max-width: 350px;
         width: 70%;
     }
+
+    .cart-div .yjzan-button--checkout {
+        width: 100% !important;
+        position: fixed;
+        bottom: 54px;
+        left: 0px;
+        height: 35px;
+    }
 }
 
 .share-pic-view-warp .share-pic {
-    max-width: 350px;
-    width: 70%;
+    max-width: 400px;
+    width: 85%;
 }
 
 .woocommerce-customer-details address {
@@ -1491,7 +1504,7 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
     font-size: 12px;
     background:#fff;
     padding: 10px;
-    width: 70%;
+    width: 85%;
 }
 
 
@@ -1587,36 +1600,54 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 
 }
 
-
-.share-pic-view .share-warp-right .share-qrcode-btl
-{
+.qrodeb-border.plt {
+    width: 10px;
+    height: 10px;
+    display: block;
+    background: rgba(255, 255, 255, 0);
+    border-top: 2px solid red;
+    border-left: 2px solid red;
     position: absolute;
-    color: red;
-    transform: rotate(43deg);
-    top: 3px;
+    top: 4px;
     left: 14px;
-}
-.share-pic-view .share-warp-right .share-qrcode-btr{
-    position: absolute;
-    top:1px;
-    right: 14px;
-    transform: rotate(135deg);
-    color:red;
+
 }
 
-.share-pic-view .share-warp-right .share-qrcode-bbl{
+.qrodeb-border.prt {
+
+    width: 10px;
+    height: 10px;
+    display: block;
+    background: rgba(255, 255, 255, 0);
+    border-top: 2px solid red;
+    border-right: 2px solid red;
     position: absolute;
-    bottom: 9px;
-    left: 15px;
-    transform: rotate(315deg);
-    color:red;
+    top: 4px;
+    right: 14px;
 }
-.share-pic-view .share-warp-right .share-qrcode-bbr{
+
+.qrodeb-border.plb {
+    width: 10px;
+    height: 10px;
+    display: block;
+    background: rgba(255, 255, 255, 0);
+    border-bottom: 2px solid red;
+    border-left: 2px solid red;
     position: absolute;
-    bottom: 10px;
-    right: 13px;
-    transform: rotate(224deg);
-    color: red;
+    left: 14px;
+    bottom: 13px;
+}
+.qrodeb-border.prb {
+
+    width: 10px;
+    height: 10px;
+    display: block;
+    background: rgba(255, 255, 255, 0);
+    border-bottom: 2px solid red;
+    border-right: 2px solid red;
+    position: absolute;
+    bottom: 13px;
+    right: 14px;
 }
 
 .share-pic-view .share-warp-right #share-qrcode{
@@ -1645,23 +1676,32 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 .share-pic-view .share-warp-price .salesPrice
 {
     color:#df220e;
-    font-size: 18px;
+    font-size: 12px;
     font-weight: bold;
     width:100%;
 }
 .share-pic-view .share-warp-price .originPrice
 {
     color:#808080;
-    font-size: 15px;
+    font-size: 12px;
     margin-left: 15px;
     position:relative;
 }
-.share-pic-view .share-warp-price .originPrice::before
-{
-    content: '_____';
+/*.share-pic-view .share-warp-price .originPrice::before*/
+/*{*/
+    /*content: '_____';*/
+    /*position: absolute;*/
+    /*top: -6px;*/
+    /*left: -3px;*/
+/*}*/
+
+
+.share-pic-view .share-warp-price .originPrice .del-line {
+    width: 100%;
+    height: 3px;
     position: absolute;
-    top: -6px;
-    left: -3px;
+    top: 6px;
+    left: 0px;
 }
 
 .share-pic-view .share-warp-price .originPrice .price-unit
@@ -1685,9 +1725,9 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
     font-weight: 500;
 }
 
-.share-pic-view .share-fooot-warp .share-shop-name i{
-    font-size: 18px !important;
-    margin-right: 9px;
+.share-pic-view .share-fooot-warp .share-shop-name .shopicon{
+    width: 16px;
+    margin-right: 6px;
 }
 
 @media (max-width:1024px)
@@ -1899,6 +1939,79 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
     color:#ccc!important;
 }
 
-.woocommerce-customer-details address .woocommerce-customer-details--email{
-    display: none;
+
+.woocommerce-checkout-review-order-table .product-name {
+    max-width: 150px;
+    width: 70%;
 }
+
+.yssh-head-warp {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 13px;
+}
+.yssh-head-warp i{ font-size: 16px!important;margin-right: 5px;}
+
+.yjzan-menu-cart--items-indicator-bubble{ z-index:9;}
+
+.yssh-warp { border-bottom: 2px #686868 dashed;margin-bottom: 8px;}
+
+.yssh-info-warp{
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.yssh-info-warp .yssh-content {
+    width: calc(100% - 65px);
+}
+
+.yssh-info-warp .yssh-logo {
+    margin-right: 20px;
+    width: 65px;
+    text-align: center;
+}
+.yssh-info-warp .yssh-content .yssh-title{
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.yssh-info-warp .yssh-content .yssh-title .go-shop-btn{
+    position: absolute;
+    right: 10px;
+    color: #fff;
+    background:#e85c5c;
+    font-size: 10px;
+    padding: 4px;
+    border-radius: 5px;
+}
+.yssh-info-warp .yssh-content .yssh-desc{
+    font-size: 12px;
+    color: #888;
+    margin-top: 20px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+.yssh-info-warp .yssh-logo i{
+    font-size: 45px !important;
+    color: #e85c5c;
+}
+
+.yssh-logo img {
+    width: 100%;
+    height: 65px;
+    object-fit: revert;
+    border-radius: 7px!important;
+}
+
+.flex-control-nav.flex-control-thumbs {
+    margin-top: 10px;
+}
+
+

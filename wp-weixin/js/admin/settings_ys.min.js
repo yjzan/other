@@ -123,29 +123,120 @@ jQuery( document ).ready( function( $ ) {
         $( this ).attr( 'type', 'password' );
     } );
 
+    debugger;
+
+
 
     if($(".wp_weixin-ecommerce-field input").is(":checked") && !$(".wp_weixin-ecommerce-field input").is(":hidden")){
+        // $(".wp_weixin-ecommerce_force_follower-field").show();
+        // $(".wp_weixin-mch_id-field").show();
+        // $(".wp_weixin-mch_key-field").show();
+        // $(".wp_weixin-pem-field").show();
+        // $(".wp_weixin-pem_path-field").show();
+        // $(".wp_weixin-cbx_yl_pay-field").show();
+        if($(".wp_weixin-cbx_yl_pay-field input").is(":checked") && !$(".wp_weixin-cbx_yl_pay-field input").is(":hidden")){
+            show_group1();
+        } else if($(".wp_weixin-cbx_ys_pay-field input").is(":checked") && !$(".wp_weixin-cbx_ys_pay input").is(":hidden")){
+            show_group3();
+        }else{
+            show_group2();
+        }
+
+
+    }else
+    {
+        $(".wp_weixin-ecommerce_force_follower-field").hide();
+        $(".wp_weixin-mch_id-field").hide();
+        $(".wp_weixin-mch_key-field").hide();
+        $(".wp_weixin-pem-field").hide();
+        $(".wp_weixin-pem_path-field").hide();
+        $(".wp_weixin-mch_appid-field").hide();
+
+        $(".wp_weixin-cbx_yl_pay-field").hide();
+        $(".wp_weixin-yl_mchId-field").hide();
+        $(".wp_weixin-yl_key-field").hide();
+
+        $(".wp_weixin-cbx_ys_pay-field").hide();
+        $(".wp_weixin-ys_partner_id-field").hide();
+        $(".wp_weixin-ys_seller_id-field").hide();
+        $(".wp_weixin-ys_seller_name-field").hide();
+        $(".wp_weixin-ys_wx_appid-field").hide();
+    }
+
+
+    function show_group1() {
+        $(".wp_weixin-yl_mchId-field").show();
+        $(".wp_weixin-yl_key-field").show();
+
+        //隐藏
+        $(".wp_weixin-mch_appid-field").hide();
+        $(".wp_weixin-mch_id-field").hide();
+        $(".wp_weixin-mch_key-field").hide();
+        $(".wp_weixin-pem-field").hide();
+        $(".wp_weixin-pem_path-field").hide();
+
+
+
+        $(".wp_weixin-cbx_ys_pay-field").hide();
+        $(".wp_weixin-ys_partner_id-field").hide();
+        $(".wp_weixin-ys_seller_id-field").hide();
+        $(".wp_weixin-ys_seller_name-field").hide();
+        $(".wp_weixin-ys_wx_appid-field").hide();
+    }
+
+    function show_group2() {
+        $(".wp_weixin-yl_mchId-field").hide();
+        $(".wp_weixin-yl_key-field").hide();
+
         $(".wp_weixin-mch_appid-field").show();
         $(".wp_weixin-mch_id-field").show();
         $(".wp_weixin-mch_key-field").show();
         $(".wp_weixin-pem-field").show();
         $(".wp_weixin-pem_path-field").show();
         $(".wp_weixin-pem_path-field").show();
-        $(".wp_weixin-pem_wx_cert_file-field").show();
+        $(".wp_weixin-cbx_ys_pay-field").show();
+        $(".wp_weixin-ys_partner_id-field").hide();
+        $(".wp_weixin-ys_seller_id-field").hide();
+        $(".wp_weixin-ys_seller_name-field").hide();
+        $(".wp_weixin-ys_wx_appid-field").hide();
 
-    }else
-    {
+    }
+
+    function show_group3() {
+        $(".wp_weixin-ys_partner_id-field").show();
+        $(".wp_weixin-ys_seller_id-field").show();
+        $(".wp_weixin-ys_seller_name-field").show();
+        $(".wp_weixin-ys_wx_appid-field").show();
+
+        //隐藏
         $(".wp_weixin-mch_appid-field").hide();
         $(".wp_weixin-mch_id-field").hide();
         $(".wp_weixin-mch_key-field").hide();
         $(".wp_weixin-pem-field").hide();
         $(".wp_weixin-pem_path-field").hide();
-        $(".wp_weixin-pem_path-field").hide();
-        $(".wp_weixin-pem_wx_cert_file-field").hide();
-        $(".wp_weixin-pem_path-field").hide();
+
+
+        $(".wp_weixin-cbx_yl_pay-field").hide();
+        $(".wp_weixin-yl_mchId-field").hide();
+        $(".wp_weixin-yl_key-field").hide();
+
     }
 
-    $(".wp_weixin-pem_path-field input").attr({ readonly: 'true' });
+    function show_group4() {
+        $(".wp_weixin-ys_partner_id-field").hide();
+        $(".wp_weixin-ys_seller_id-field").hide();
+        $(".wp_weixin-ys_seller_name-field").hide();
+        $(".wp_weixin-ys_wx_appid-field").hide();
+
+        //隐藏
+        $(".wp_weixin-mch_appid-field").show();
+        $(".wp_weixin-mch_id-field").show();
+        $(".wp_weixin-mch_key-field").show();
+        $(".wp_weixin-pem-field").show();
+        $(".wp_weixin-pem_path-field").show();
+
+        $(".wp_weixin-cbx_yl_pay-field").show();
+    }
 
     $(".wp_weixin-ecommerce-field input").click(function(){
         if($(this).is(":checked")){
@@ -154,8 +245,17 @@ jQuery( document ).ready( function( $ ) {
             $(".wp_weixin-mch_key-field").show();
             $(".wp_weixin-pem-field").show();
             $(".wp_weixin-pem_path-field").show();
-            $(".wp_weixin-pem_wx_cert_file-field").show();
-            $(".wp_weixin-mch_appid-field").show();
+            $(".wp_weixin-cbx_yl_pay-field").show();
+            $(".wp_weixin-yl_mchId-field").show();
+            $(".wp_weixin-yl_key-field").show();
+
+            if($(".wp_weixin-cbx_yl_pay-field input").is(":checked")){
+                show_group1();
+            }else if($(".wp_weixin-cbx_ys_pay-field input").is(":checked")){
+                show_group3();
+            }else{
+                show_group2();
+            }
 
         }else
         {
@@ -164,46 +264,40 @@ jQuery( document ).ready( function( $ ) {
             $(".wp_weixin-mch_key-field").hide();
             $(".wp_weixin-pem-field").hide();
             $(".wp_weixin-pem_path-field").hide();
-            $(".wp_weixin-pem_wx_cert_file-field").hide();
+            $(".wp_weixin-cbx_yl_pay-field").hide();
+            $(".wp_weixin-yl_mchId-field").hide();
+            $(".wp_weixin-yl_key-field").hide();
             $(".wp_weixin-mch_appid-field").hide();
+
+            $(".wp_weixin-cbx_ys_pay-field").hide();
+            $(".wp_weixin-ys_partner_id-field").hide();
+            $(".wp_weixin-ys_seller_id-field").hide();
+            $(".wp_weixin-ys_seller_name-field").hide();
+            $(".wp_weixin-ys_wx_appid-field").hide();
+
         }
     });
 
-    //上传图片
-    $('#pem_wx_cert_file').on('change',function (e) {
-        var fileArray = document.getElementById('pem_wx_cert_file').files[0];
-        var formData = new FormData();
-        formData.append("fileArray", fileArray);
-        formData.append("action", 'yjz_upload_file');
-        formData.append("ctype", 'wxcert');
-
-        $.ajax({
-            url: "/wp-admin/admin-ajax.php",//传向后台服务器文件
-            type: 'POST',    //传递方法
-            data: formData,  //传递的数据
-            dataType : 'json',  //传递数据的格式
-            async:false, //这是重要的一步，防止重复提交的
-            cache: false,  //设置为false，上传文件不需要缓存。
-            contentType: false,//设置为false,因为是构造的FormData对象,所以这里设置为false。
-            processData: false,//设置为false,因为data值是FormData对象，不需要对数据做处理。
-            success: function (res){
-               if(res.status=='1')
-               {
-                   $('.wp_weixin-pem_path-field input').val(res.path);
-                   alert('上传成功');
-               }else
-               {
-                   alert('上传失败，'+ res.msg)
-               }
 
 
-            },
-            error: function () {
-                alert("上传错误！");
-            }
-        });
+    $(".wp_weixin-cbx_yl_pay-field input").click(function(){
+        if($(this).is(":checked")){
+            show_group1();
+            $(".wp_weixin-cbx_ys_pay-field input").prop("checked",false);
+        }else{
+            show_group2();
+        }
+    });
 
-    })
+    $(".wp_weixin-cbx_ys_pay-field input").click(function(){
+        if($(this).is(":checked")){
+            show_group3();
+            $(".wp_weixin-cbx_yl_pay-field input").prop("checked",false);
+        }else{
+            show_group4();
+        }
+    });
+
 
 
 
