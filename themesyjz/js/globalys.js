@@ -919,7 +919,7 @@
 
         $(".select_tag_all").click(function(){
             yjzProductBoxInit();
-            get_product_data(product_list_swiper,'');
+            get_product_data(product_list_swiper,'',true);
         });
 
     }
@@ -960,7 +960,7 @@
                     $('.yd-load-product-data-bt').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>');
 
                     $(".yjz-pagination ul.page-numbers").html('');
-                    get_product_data(product_list_swiper,$("#yjzp_term_ids").val());
+                    get_product_data(product_list_swiper,$("#yjzp_term_ids").val(),true);
 
                 };
                 dd.appendChild(span);
@@ -971,7 +971,7 @@
                 var tagid = $(this).attr("tagid")
                 $(".yjz-pagination ul.page-numbers").html('');
 
-                get_product_data(product_list_swiper,tagid);
+                get_product_data(product_list_swiper,tagid,true);
 
                 //隐藏选择栏
                 var is_pc = $(window).width()>1024;
@@ -1008,6 +1008,7 @@
                     direction: 'vertical',
                     slidesPerView: 'auto',
                     mousewheelControl: true,
+                    freeModeMomentumVelocityRatio : 1.5,
                     freeMode: true,
                     on: {
                         touchMove: function (event) {
@@ -1042,7 +1043,7 @@
                             //上拉加载
                             if (product_list_swiper.translate <= _viewHeight - _contentHeight + 50 && product_list_swiper.translate < 0) {
                                 $(".yd-load-product-data-bt").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>   正在加载...');
-                                var rs = get_product_data(product_list_swiper, product_list_current_tagid);
+                                var rs = get_product_data(product_list_swiper, product_list_current_tagid,false);
                                 product_list_swiper.update(); // 重新计算高度;
                             }
 
@@ -1083,7 +1084,7 @@
 
 
     //sessionStorage.clear();
-    function get_product_data(product_list_swiper,tag_id)
+    function get_product_data(product_list_swiper,tag_id,to_top)
     {
         var is_supports = ( 'sessionStorage' in window && window['sessionStorage'] !== null );
 
@@ -1118,12 +1119,12 @@
             term_ids = tag_id;
         }
 
-        var data_key ='procuct_key_'+current_page+'_'+page_size+'_'+(term_ids==''?'all':term_ids)+'_'+thumb+'_'+img_size;
+        var data_key ='procuct_key_'+current_page+'_'+page_size+'_'+(term_ids==''?'all':term_ids)+'_'+thumb+'_'+img_size+'_'+search;
 
         if(is_supports && sessionStorage.getItem(data_key)!=null)
         {
             var rps_cache = JSON.parse(sessionStorage.getItem(data_key));
-            yjz_load_product_data(rps_cache,current_page,end_page);
+            yjz_load_product_data(rps_cache,current_page,end_page,to_top);
             loading_product_data=0;
             return;
         }
@@ -1151,7 +1152,7 @@
             dataType: "JSON",
             data   : params,
             success: function (req) {
-                yjz_load_product_data(req,current_page,end_page);
+                yjz_load_product_data(req,current_page,end_page,to_top);
                 loading_product_data=0;
                 if(is_supports)
                     sessionStorage.setItem(data_key, JSON.stringify(req));
@@ -1164,7 +1165,7 @@
         });
     }
 
-    function yjz_load_product_data(req,current_page,end_page)
+    function yjz_load_product_data(req,current_page,end_page,to_top)
     {
         if($(window).width()>1024)
             $('.yd-load-product-data-bt').hide();
@@ -1214,6 +1215,10 @@
 
         }
 
+
+        if(to_top==true) //置顶
+            product_list_swiper.translate=0;
+
         $('.yd-load-product-data-bt').html('<i class="iconfont icon-arrow_up_fill" aria-hidden="true"></i> 上拉加载更多');
 
         if(current_page==req.page_total)
@@ -1224,6 +1229,8 @@
 
         if(typeof product_list_swiper !== "undefined")
             product_list_swiper.update();// 重新计算高度;
+
+
     }
 
 
@@ -1284,7 +1291,7 @@
 
             var page = c_page-1 ;
             $("#yjzp_current_page").val(page);
-            var rs = get_product_data(product_list_swiper,product_list_current_tagid);
+            var rs = get_product_data(product_list_swiper,product_list_current_tagid,true);
 
         });
     }
@@ -1319,7 +1326,7 @@
     //产品tabs 竖型标签点击
     $(".yjz-product-left-box .p-child-tag").on("click",function(){
         yjzProductBoxInit();
-        get_product_data(product_list_swiper,$(this).attr("tagid"));
+        get_product_data(product_list_swiper,$(this).attr("tagid"),true);
         $(".yjz-product-left-box .p-child-tag.active").removeClass("active");
         $(this).addClass("active");
 
@@ -1336,7 +1343,7 @@
         {
             $(".yjz-product-left-box .p-child-tag").show();
             //加载全数据
-            get_product_data(product_list_swiper,$("#yjzp_term_ids").val());
+            get_product_data(product_list_swiper,$("#yjzp_term_ids").val(),true);
         }else
         {
             var parent_class_id = '.tag-parent-'+ $(this).attr("tagid");
@@ -1344,7 +1351,7 @@
             $(".yjz-product-left-box .p-child-tag"+ parent_class_id).show();
 
             //加载分类目录数据
-            get_product_data(product_list_swiper,$(this).attr("tag_child_id"));
+            get_product_data(product_list_swiper,$(this).attr("tag_child_id"),true);
         }
     });
 
@@ -1352,7 +1359,7 @@
     $(".yjz-select-tag dl dt").on("click",function () {
         yjzProductBoxInit();
         var ids = $(this).attr("tag_child_id");
-        get_product_data(product_list_swiper,ids);
+        get_product_data(product_list_swiper,ids,true);
     });
 
 
@@ -1410,9 +1417,9 @@
         $('img.lazy:not(.imgfinish)').lazyload({
             //   container: $('.yjz-piclib-box'),    对指定标签对象内的图片实现效果，表示在此标签中滚动时，触发加载（注意：如果容器未设置height和overfload:auto，那么会默认加载所有图片）
             threshold: 100,                    //当图片顶部距离显示区域还有100像素时，就开始加载
-            placeholder : "https://media.yjzan.com/pic/3F4FFD8CF5AB6F5839BD69DA3ABCE84D",      // 图片未加载时，占位
+            placeholder : "https://cdn.jsdelivr.net/gh/yjzan/other/img/lazyimgbg.jpg",      // 图片未加载时，占位
             effect: "fadeIn",               // 图片出现的效果，值有show(直接显示),fadeIn(淡入),slideDown(下拉)
-            effect_speed: 300,                // 效果出现的时间
+            effect_speed: 200,                // 效果出现的时间
             event: 'scroll',                   // 滚动滚轮时触发，可以是：click、mouseover等
             data_attribute: 'original',        // img标签中保存url的自定义属性，默认：data-original
             skip_invisible: true,              // 是否跳过已经隐藏的图片（display:none）
@@ -1669,6 +1676,33 @@
         });
     }
 
+
+    // function showloading()
+    // {
+    //     $('body').append('<div class="">1233</div>');
+    // }
+
+
+    // $("a").on("click", function (){
+    //     console.log('12334');
+    //     return true;
+    // });
+
+    // fobidden_back();
+    //
+    // function fobidden_back() {
+    //     //防止页面后退
+    //     history.pushState(null, null, document.URL);
+    //     window.addEventListener('popstate',back_common)
+    // }
+    // //启用浏览器返回
+    // function enable_back() {
+    //     history.go(-1);
+    //     window.removeEventListener('popstate',back_common)
+    // }
+    // function back_common() {
+    //     history.pushState(null, null, document.URL);
+    // }
 
 
     /**this is end**/
