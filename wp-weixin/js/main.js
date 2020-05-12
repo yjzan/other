@@ -247,8 +247,8 @@ jQuery( function( $ ) {
         } );
 
         if ( WP_Weixin.share ) {
-            wx.onMenuShareTimeline( {
-                title: WP_Weixin.share.title,
+            wx.updateTimelineShareData( {
+                title:  WP_Weixin.share.title,
                 link: WP_Weixin.share.link,
                 imgUrl: WP_Weixin.share.imgUrl,
                 success: function () {
@@ -259,8 +259,8 @@ jQuery( function( $ ) {
                 }
             } );
 
-            wx.onMenuShareAppMessage( {
-                title: WP_Weixin.share.title,
+            wx.updateAppMessageShareData( {
+                title: '99'+WP_Weixin.share.title,
                 desc: WP_Weixin.share.desc,
                 link: WP_Weixin.share.link,
                 imgUrl: WP_Weixin.share.imgUrl,
