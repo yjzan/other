@@ -79,7 +79,7 @@ select{border:1px solid #bbb;-webkit-border-radius:3px;border-radius:3px;height:
 input[type=checkbox]:focus,input[type=radio]:focus{outline:thin dotted #333}
 input[type=checkbox],input[type=radio]{margin-right:.5em}
 input[type=checkbox]+label,input[type=radio]+label{font-weight:400}
-button{background-color:#f97f22;border:0;-webkit-border-radius:2px;border-radius:2px;-webkit-box-shadow:none;box-shadow:none;color:#fff;cursor:pointer;display:inline-block;font-size:14px;font-weight:800;line-height:1;padding: 8px 15px;width: auto;text-shadow:none;-webkit-transition:background .2s;transition:background .2s}
+button{background-color:#ff3200;border:0;-webkit-border-radius:2px;border-radius:2px;-webkit-box-shadow:none;box-shadow:none;color:#fff;cursor:pointer;display:inline-block;font-size:14px;font-weight:800;line-height:1;padding: 8px 15px;width: auto;text-shadow:none;-webkit-transition:background .2s;transition:background .2s}
 input[type=button],input[type=submit]{background-color:#f97f22;border:0;-webkit-border-radius:2px;border-radius:2px;-webkit-box-shadow:none;box-shadow:none;color:#fff;cursor:pointer;display:inline-block;font-size:14px;font-weight:800;line-height:1;padding: 8px 15px;min-width: 100px;width: auto;text-shadow:none;-webkit-transition:background .2s;transition:background .2s}
 input+button,input+input[type=button],input+input[type=submit]{padding:.75em 2em}
 button.secondary,input[type=button].secondary,input[type=reset],input[type=reset].secondary,input[type=submit].secondary{background-color:#ddd;color:#222}
