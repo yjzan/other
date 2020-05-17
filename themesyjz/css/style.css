@@ -719,7 +719,6 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 
     .woocommerce-checkout .col-1, .woocommerce-checkout .col-2{
         box-shadow: 0 0 0!important;
-        padding-top: 0px!important;
     }
 }
 
@@ -893,7 +892,7 @@ div.shopswatchinput a{display:inline-block !important;}div.wcvashopswatchlabel{m
 }
 
 .woocommerce-MyAccount-content .woocommerce-notices-wrapper{margin-top:53px;width:300px;margin-right:auto;margin-left:auto}
-.woocommerce-MyAccount-content.yjz-check-out{padding:40px 0px 10px 0px;!important;}
+.woocommerce-MyAccount-content.yjz-check-out{padding:40px 0px 10px 0px!important;}
 
 
 @media (max-width:1024px){
