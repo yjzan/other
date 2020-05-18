@@ -477,7 +477,7 @@
                     if(typeof bgUrl == 'undefined' || bgUrl=='')
                     {
                         var bgUrl = jQuery(".wp-post-image").attr("src");
-                        bgUrl = !(typeof bgUrl == 'undefined' || bgUrl=='')? bgUrl : 'https://res.cloudinary.com/demo/image/fetch/w_150,f_auto,q_auto:low/https%3A%2F%2Fyjzcdn.top%2Ffile%2Fyjzan-web%2F2019%2F06%2F19%2F2FCAF1F3CC7707007A38C4DF86E5B2EB.jpg';
+                        bgUrl = !(typeof bgUrl == 'undefined' || bgUrl=='')? bgUrl : 'https://search.pstatic.net/common?type=a&size=150&quality=80&src=https%3A%2F%2Fyjzcdn.top%2Ffile%2Fyjzan-web%2F2019%2F06%2F19%2F2FCAF1F3CC7707007A38C4DF86E5B2EB.jpg';
                         bgUrl = 'url("'+bgUrl+'")';
                     }
 
@@ -915,7 +915,7 @@
 
         $(".select_tag_all").click(function(){
             yjzProductBoxInit();
-            get_product_data(product_list_swiper,'',true);
+            get_product_data('',true);
 
         });
 
@@ -957,7 +957,7 @@
                     $('.yd-load-product-data-bt').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>');
 
                     $(".yjz-pagination ul.page-numbers").html('');
-                    get_product_data(product_list_swiper,$("#yjzp_term_ids").val(),true);
+                    get_product_data($("#yjzp_term_ids").val(),true);
 
                 };
                 dd.appendChild(span);
@@ -973,8 +973,7 @@
                     tagid = $(this).attr("tag_child_id");
                 }
 
-                get_product_data(product_list_swiper,tagid,true);
-
+                get_product_data(tagid,true);
                 //隐藏选择栏
                 var is_pc = $(window).width()>1024;
                 if(!is_pc)
@@ -1002,8 +1001,18 @@
 
     if($(".yjzan-widget-yjz-products").length>0)
     {
-        jQuery("#yjz-product-ul").css({ 'opacity' : 0 });
-        setTimeout(product_page_init(),300);
+        $("#yjz-product-ul").css({ 'opacity' : 0 });
+        $(".yjz-product-left-box").css({ 'opacity' : 0 });
+        $(".yjz-select-tag").css({ 'opacity' : 0 });
+        $(".yjz-h-tabs-tag").css({ 'opacity' : 0 });
+
+        setTimeout(product_page_init(),200);
+        setTimeout(function () {
+            $("#yjz-product-ul").css({ 'opacity' : 1 });
+            $(".yjz-product-left-box").css({ 'opacity' : 1 });
+            $(".yjz-select-tag").css({ 'opacity' : 1 });
+            $(".yjz-h-tabs-tag").css({ 'opacity' : 1 });
+        },300);
     }
 
 
@@ -1018,7 +1027,6 @@
         {
             $("#yjz-product-tag-icon").attr('data-statu',0);
             $("#yjz-product-tag-icon").css('transform','rotate(90deg)');
-
             //主内容
             var content = sessionStorage.getItem('yjz-product-ul-html');
             if(content!='' && content != null)
@@ -1038,13 +1046,20 @@
 
             }else if($("#open_tag_label").val() == 'yes')
             {
-
+               var select_tag_html =sessionStorage.getItem('yjzp-select-tag');
+               $(".yjz-select-tag").html(select_tag_html)
             }
+
+            $("#yjzp_current_page").val(sessionStorage.getItem('yjzp_current_page'));
+            $('.yd-load-product-data-bt').html(sessionStorage.getItem('yjzp-load-product-tip'));
+            loading_product_data = sessionStorage.getItem('loading_product_data');
+
         }else
         {
             sessionStorage.removeItem('yjz-product-ul-html');
             sessionStorage.removeItem('yjzp_left_menu_html');
             sessionStorage.removeItem('yjzp_top_menu_html');
+            sessionStorage.removeItem('yjzp-select-tag');
         }
 
 
@@ -1055,6 +1070,9 @@
             autoHeight:true,
             freeModeMomentumVelocityRatio:1.2,
             on: {
+                touchStart:function(event){
+                    product_list_swiper.setTranslate(product_list_swiper.getTranslate());
+                },
                 touchMove: function (event) {
                     event.stopPropagation();
 
@@ -1074,11 +1092,9 @@
                             box_moving = 0;
                         }, 200);
                     }, 30);
-                    imglazyload();
 
                 }, touchEnd: function (event) {
                     //你的事件
-                    imglazyload();
                     event.stopPropagation();
                     if ($(window).width() > 1024)
                         return;
@@ -1088,8 +1104,8 @@
 
                     //上拉加载
                     if (product_list_swiper.translate <= _viewHeight - _contentHeight + 50 && product_list_swiper.translate < 0) {
-                        $(".yd-load-product-data-bt").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>   正在加载...');
-                        var rs = get_product_data(product_list_swiper, product_list_current_tagid,false);
+                        $(".yd-load-product-data-bt").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>   正在加载');
+                        var rs = get_product_data(product_list_current_tagid,false);
                         product_list_swiper.updateSize(); // 重新计算高度;
                     }
 
@@ -1156,7 +1172,6 @@
                 $(".yjz-select-tag").html(yjzp_select_tag_html);
             }
 
-
         }else
         {
             sessionStorage.removeItem('yjzp_top_menu_translate');
@@ -1166,25 +1181,50 @@
         }
 
 
-
-
        jQuery("#yjz-product-ul").css({ 'opacity' : 1 });
         init_product_select_tag();
+
+        if($(window).width()<=1024)
+        {
+            $("#yjz-product-tag-icon").attr('data-statu',0);
+        }
+
+
+        $("#yjz-product-tag-icon").on("click", function () {
+            if($(this).attr('data-statu')==1)
+            {
+                $(".yjzan-widget-yjz-products .yjz-select-tag dl").not(".select").hide();
+                $(this).attr('data-statu',0);
+                $(this).css('transform','rotate(90deg)');
+            }else
+            {
+                $(".yjzan-widget-yjz-products .yjz-select-tag dl").not(".select").show();
+                $(this).attr('data-statu',1);
+                $(this).css('transform','rotate(270deg)');
+            }
+
+        });
     }
 
 
 
     //sessionStorage.clear();
-    function get_product_data(product_list_swiper,tag_id,to_top)
+    function get_product_data(tag_id,to_top)
     {
         var is_supports = ( 'sessionStorage' in window && window['sessionStorage'] !== null );
+        var current_page = typeof $("#yjzp_current_page").val() == 'undefined' ? 1 : parseInt($("#yjzp_current_page").val()) +1;
 
         if(loading_product_data==1)
+        {
+            $(".yjz-loading-icon").hide();
             return ;
+        }
+
 
         if(product_list_load_all==1 &&tag_id==product_list_current_tagid && $(window).width()<=1024)
         {
-            $('.yd-load-product-data-bt').html('已经到底了！');
+            $('.yd-load-product-data-bt').html($("#yjzp_current_page").val()>1?'已经到底了！':'');
+            $(".yjz-loading-icon").hide();
             return ;
         }
         else
@@ -1193,13 +1233,12 @@
 
         product_list_current_tagid = tag_id;
 
-        var current_page = typeof $("#yjzp_current_page").val() == 'undefined' ? 1 : parseInt($("#yjzp_current_page").val()) +1;
+
         var end_page =  $("#yjzp_end_page").val();
         var page_size =  $("#yjzp_page_size").val();
         var term_ids =  $("#yjzp_term_ids").val();
         var thumb =  $("#yjzp_thumbnail").val();
         var img_size=  $("#yjzp_image_size").val();
-        var query_str=  $("#yjzp_query_str").val();
         var orderby=  $("#yjzp_orderby").val();
         var search=  $("#yjzp_search").val();
         var featured_id=  $("#yjzp_featured_id").val();
@@ -1216,24 +1255,27 @@
         {
             var rps_cache = JSON.parse(sessionStorage.getItem(data_key));
             yjz_load_product_data(rps_cache,to_top);
-            loading_product_data=0;
+            loading_product_data=0;            
+            $(".yjz-loading-icon").hide();
             return;
         }
 
-        var params = {'action':'yjz_get_products','page':current_page,'page_size':page_size,'term_ids':term_ids,'thumb':thumb,'img_size':img_size,'query_str':query_str ,'orderby':orderby,'search':search,'featuredid':featured_id,'variableid':variable_id};
+        var params = {'action':'yjz_get_products','page':current_page,'page_size':page_size,'term_ids':term_ids,'thumb':thumb,'img_size':img_size,'orderby':orderby,'search':search,'featuredid':featured_id,'variableid':variable_id};
         if(current_page>end_page)
         {
-            $('.yd-load-product-data-bt').html('已经到底了！');
+            $('.yd-load-product-data-bt').html($("#yjzp_current_page").val()>1?'已经到底了！':'');
             loading_product_data=0;
             if($(window).width()<=1024)
                 product_list_load_all==1
+            $(".yjz-loading-icon").hide();
             return;
         }else
         {
             if($(window).width()>1024)
                 $('.yd-load-product-data-bt').show();
 
-            $('.yd-load-product-data-bt').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>   正在加载');
+            if(current_page>1)
+                $('.yd-load-product-data-bt').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>   正在加载');
         }
 
         loading_product_data=1;
@@ -1247,11 +1289,15 @@
                 loading_product_data=0;
                 if(is_supports)
                     sessionStorage.setItem(data_key, JSON.stringify(req));
+                imglazyload();
+                $(".yjz-loading-icon").hide();
             },
             error  : function (data) {
                 loading_product_data=0;
                 if($(window).width()>1024)
                     $('.yd-load-product-data-bt').hide();
+
+                $(".yjz-loading-icon").hide();
             },
         });
     }
@@ -1262,17 +1308,23 @@
             $('.yd-load-product-data-bt').hide();
 
         if(req.status==0)
+        {
             yjzSendInfo('加载数据失败...',1,2,2);
+            $(".yd-load-product-data-bt").html('');
+        }
         else if(req.status==2){
-            $('.yd-load-product-data-bt').html('已经到底了！');
+
+            $('.yd-load-product-data-bt').html($("#yjzp_current_page").val()>1?'已经到底了！':'');
             product_list_load_all==1;
             if(typeof product_list_swiper !== "undefined")
                 product_list_swiper.update(); // 重新计算高度;
             return;
         } else if(req.status==3)
         {
-            $("#yjz-product-ul").html('<p style="margin-top: 20px; ">暂无产品信息！</p>');
+            $("#yjz-product-ul").html('<div class="not-found-any-thing"><h5>暂未查找到任何产品</h5><img src="https://cdn.jsdelivr.net/gh/yjzan/other/img/cart_empty.png" ></div>');
             product_list_load_all==1;
+            $(".yd-load-product-data-bt").html('');
+
             if(typeof product_list_swiper !== "undefined")
                 product_list_swiper.update(); // 重新计算高度;
             return;
@@ -1313,7 +1365,7 @@
 
         if(req.page == req.page_total)
         {
-            $('.yd-load-product-data-bt').html('已经到底了！');
+            $('.yd-load-product-data-bt').html($("#yjzp_current_page").val()>1?'已经到底了！':'');
             product_list_load_all=1;
         }
 
@@ -1380,7 +1432,7 @@
 
             var page = c_page-1 ;
             $("#yjzp_current_page").val(page);
-            var rs = get_product_data(product_list_swiper,product_list_current_tagid,true);
+            var rs = get_product_data(product_list_current_tagid,true);
 
         });
     }
@@ -1388,20 +1440,7 @@
     initYjzPageNumber();
 
 
-    $("#yjz-product-tag-icon").on("click", function () {
-        if($(this).attr('data-statu')==1)
-        {
-            $(".yjzan-widget-yjz-products .yjz-select-tag dl").not(".select").hide();
-            $(this).attr('data-statu',0);
-            $(this).css('transform','rotate(90deg)');
-        }else
-        {
-            $(".yjzan-widget-yjz-products .yjz-select-tag dl").not(".select").show();
-            $(this).attr('data-statu',1);
-            $(this).css('transform','rotate(270deg)');
-        }
 
-    });
 
 
     function yjzProductBoxInit()
@@ -1409,21 +1448,23 @@
         $("#yjzp_current_page").val(0);
         $('#yjz-product-ul').html('');
         $(".yjz-pagination ul.page-numbers").html('');
+        $('#yjzp_search').val('');
+        $('.yjzan-search-form__input').val('');
+        $(".yjz-loading-icon").show();
+        $(".yd-load-product-data-bt").html('');
         product_list_load_all = 0;
     }
 
     //产品tabs 竖型标签点击
     $(".yjz-product-left-box .p-child-tag").on("click",function(){
         yjzProductBoxInit();
-        get_product_data(product_list_swiper,$(this).attr("tagid"),true);
+        get_product_data($(this).attr("tagid"),true);
         $(".yjz-product-left-box .p-child-tag.active").removeClass("active");
         $(this).addClass("active");
-
     });
 
     //产品tabs 水平标签点击
     $(".yjz-h-tabs-tag .swiper-slide span").on("click",function () {
-
         $(".yjz-h-tabs-tag .swiper-slide.active").removeClass("active");
         $(".yjz-product-left-box .p-child-tag.active").removeClass("active");
         $(this).parent().addClass("active");
@@ -1432,7 +1473,7 @@
         {
             $(".yjz-product-left-box .p-child-tag").show();
             //加载全数据
-            get_product_data(product_list_swiper,$("#yjzp_term_ids").val(),true);
+            get_product_data($("#yjzp_term_ids").val(),true);
         }else
         {
             var parent_class_id = '.tag-parent-'+ $(this).attr("tagid");
@@ -1440,7 +1481,7 @@
             $(".yjz-product-left-box .p-child-tag"+ parent_class_id).show();
 
             //加载分类目录数据
-            get_product_data(product_list_swiper,$(this).attr("tag_child_id"),true);
+            get_product_data($(this).attr("tag_child_id"),true);
         }
         product_v_tag_swiper.translate=0;
         product_v_tag_swiper.update();
@@ -1450,7 +1491,7 @@
     $(".yjz-select-tag dl dt").on("click",function () {
         yjzProductBoxInit();
         var ids = $(this).attr("tag_child_id");
-        get_product_data(product_list_swiper,ids,true);
+        get_product_data(ids,true);
     });
 
 
@@ -1475,6 +1516,9 @@
         }
 
 
+        sessionStorage.setItem('yjzp_current_page',$("#yjzp_current_page").val());
+        sessionStorage.setItem('yjzp-load-product-tip',$('.yd-load-product-data-bt').html());
+        sessionStorage.setItem('loading_product_data',loading_product_data);
 
 
         if($(window).width()<=1024) {
@@ -1519,18 +1563,22 @@
         }, 2000 );
     }
 
+    // $(window).scroll(function() {
+    //     imglazyload();
+    // });
+
 
     setInterval(imglazyload, 1000);
     function imglazyload() {
         $('img.lazy:not(.imgfinish)').lazyload({
             //   container: $('.yjz-piclib-box'),    对指定标签对象内的图片实现效果，表示在此标签中滚动时，触发加载（注意：如果容器未设置height和overfload:auto，那么会默认加载所有图片）
-            threshold: 200,                    //当图片顶部距离显示区域还有100像素时，就开始加载
+            threshold: 0,                    //当图片顶部距离显示区域还有100像素时，就开始加载
             placeholder : "https://cdn.jsdelivr.net/gh/yjzan/other/img/lazyimgbg.jpg",      // 图片未加载时，占位
-            effect: "show",               // 图片出现的效果，值有show(直接显示),fadeIn(淡入),slideDown(下拉)
-            effect_speed: 0,                // 效果出现的时间
+            effect: "fadeIn",               // 图片出现的效果，值有show(直接显示),fadeIn(淡入),slideDown(下拉)
+            effect_speed: 100,                // 效果出现的时间
             event: 'scroll',                   // 滚动滚轮时触发，可以是：click、mouseover等
             data_attribute: 'original',        // img标签中保存url的自定义属性，默认：data-original
-            skip_invisible: true,              // 是否跳过已经隐藏的图片（display:none）
+        //    skip_invisible: false,              // 是否跳过已经隐藏的图片（display:none）
             failure_limit: 40,                  // 由于延迟加载是根据Dom从上到下执行
             appear: function(){                // 当图片位置刚出现在视图时，触发此事件
                 $(this).addClass('imgfinish');
@@ -1541,9 +1589,6 @@
         });
     }
 
-    $(window).scroll(function() {
-        imglazyload();
-    });
 
     function wx_share_init() {
         var sharePicUrl = $("#yjz_post_thumbnail_url").val();
@@ -1783,20 +1828,24 @@
     }
 
 
-    $(window).load(function() {
-        $(".yjz-loading-icon").hide();
-    });
+    // $(window).load(function() {
+    //     $(".yjz-loading-icon").hide();
+    // });
 
     // $(window).unload(function(){
     //     $(".yjz-loading-icon").show();
     // });
 
     //不是返回页面
-    if(!is_back_page)
-        setTimeout( function(){$(".yjz-loading-icon").show();}, 300 );
-
-    window.onbeforeunload=function(){ $(".yjz-loading-icon").show();}
+   // if(!is_back_page)
+    setTimeout( function(){$(".yjz-loading-icon").show();}, 300 );
     setTimeout( function(){$(".yjz-loading-icon").hide();}, 2500 );
+    window.onbeforeunload=function(){ $(".yjz-loading-icon").show();}
+
+    $(".woo-mobile-navigation , .yjz-h-tabs-tag ,.yjzan-search-form__input").on("touchmove", function(e){
+        e.preventDefault();
+    });
+
 
     /**this is end**/
 })( jQuery );

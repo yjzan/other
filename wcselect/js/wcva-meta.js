@@ -245,7 +245,7 @@
 
 				jQuery(document).on( 'click', '.hover_remove_image_button_' + parentId2 + '', function( event ){
 				    
-					jQuery('#hover_facility_thumbnail_' + parentId2 + ' img').attr('src','https://res.cloudinary.com/demo/image/fetch/w_150,f_auto,q_auto:good/https%3A%2F%2Fyjzcdn.top%2Ffile%2Fyjzan-web%2F2019%2F08%2F05%2F3F4FFD8CF5AB6F5839BD69DA3ABCE84D.jpg' );
+					jQuery('#hover_facility_thumbnail_' + parentId2 + ' img').attr('src','https://cdn.jsdelivr.net/gh/yjzan/other/img/lazyimgbg.jpg' );
 					jQuery('.hover_facility_thumbnail_id_' + parentId2 + '').val('');
 					jQuery('.hover_remove_image_button_' + parentId2 + '').hide();
 					return false;
