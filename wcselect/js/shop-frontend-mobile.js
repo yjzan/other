@@ -16,8 +16,6 @@
                 $(parentdiv).attr("prod-img",productimage);
                }
              }
-			 
-
-         );       
+         );
 
 })(jQuery);

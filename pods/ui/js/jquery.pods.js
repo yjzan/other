@@ -51,9 +51,9 @@
                             $el.closest( '.pods-field-input' ).find( '.pods-validate-error-message' ).remove();
 
                             if ( $el.closest( '.pods-field-input > td' ).length > 0 ) {
-                                $el.closest( '.pods-field-input > td' ).last().prepend( '<div class="pods-validate-error-message">' + PodsI18n.__( '%s is required.' ).replace( '%s', label.replace( /( <([^>]+ )> )/ig, '' ) ) + '</div>' );
+                                $el.closest( '.pods-field-input > td' ).last().prepend( '<div class="pods-validate-error-message">该项目为必填项</div>' );
                             } else {
-                                $el.closest( '.pods-field-input' ).append( '<div class="pods-validate-error-message">' + PodsI18n.__( '%s is required.' ).replace( '%s', label.replace( /( <([^>]+ )> )/ig, '' ) ) + '</div>' );
+                                $el.closest( '.pods-field-input' ).append( '<div class="pods-validate-error-message">该项目为必填项</div>' );
                             }
                             $el.addClass( 'pods-validate-error' );
 

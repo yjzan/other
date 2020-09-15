@@ -465,16 +465,51 @@ jQuery( function( $ ) {
                     }
                 } );
 
+                //加入小程序判断
+                var params = $form.serialize();
+                var ua = navigator.userAgent.toLowerCase();
+                var iswx = ua.match(/MicroMessenger/i)=="micromessenger";
+                var iswxp = false;
+                if(iswx)
+                {
+                    wx.miniProgram.getEnv(function(res) {
+                        if(res.miniprogram){
+                            params +='&wxminp=1';
+                            iswxp = true;
+                        }
+                    });
+                }
+
                 $.ajax({
                     type:       'POST',
                     url:        wc_checkout_params.checkout_url,
-                    data:       $form.serialize(),
+                    data:       params,
                     dataType:   'json',
                     success:    function( result ) {
                         try {
                             if ( 'success' === result.result ) {
                                 if ( result.type && ( 'wechatPayMobile' === result.type ) ) {
-                                    callWXPay(result);
+                                    if(iswxp==true)
+                                    {
+                                        var payinfo = {};
+                                        payinfo.appId = result.appId;
+                                        payinfo.timeStamp = result.timeStamp;
+                                        payinfo.nonceStr = result.nonceStr;
+                                        payinfo.package = result.package;
+                                        payinfo.signType = result.signType;
+                                        payinfo.paySign = result.paySign;
+                                        payinfo.total_fee = result.total_fee;
+                                        var rsstr =  encodeURIComponent(JSON.stringify(payinfo));
+                                        //  alert(rsstr);
+                                        var yjzurl = '/pages/wxpay/wxpay?params=' + rsstr;
+                                        $(".blockUI blockOverlay").hide();
+                                        $(".yjz-mask-layer").show();
+                                        $(".wxp-pay-tip").css('display','flex');
+                                        wx.miniProgram.navigateTo({url: yjzurl});
+                                    }else
+                                    {
+                                        callWXPay(result);
+                                    }
                                     return;
                                 }
 
@@ -679,7 +714,6 @@ jQuery( function( $ ) {
             };
 
         WeixinJSBridge.invoke( api, params, function( res ) {
-
             if ( 'get_brand_wcpay_request:ok' === res.err_msg ) {
                 var data = {
                     action: 'woowechatpay_hold',

@@ -245,7 +245,7 @@
 
 				jQuery(document).on( 'click', '.hover_remove_image_button_' + parentId2 + '', function( event ){
 				    
-					jQuery('#hover_facility_thumbnail_' + parentId2 + ' img').attr('src','https://cdn.jsdelivr.net/gh/yjzan/other/img/lazyimgbg.jpg' );
+					jQuery('#hover_facility_thumbnail_' + parentId2 + ' img').attr('src','https://cdn.jsdelivr.net/npm/yjzan2020/other/img/lazyimgbg2.jpg' );
 					jQuery('.hover_facility_thumbnail_id_' + parentId2 + '').val('');
 					jQuery('.hover_remove_image_button_' + parentId2 + '').hide();
 					return false;

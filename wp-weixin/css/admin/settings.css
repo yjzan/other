@@ -44,7 +44,7 @@
 }
 
 .qr-wrapper {
-	background-image: url(../../images/qr-placeholder.png);
+	background-image: url('https://cdn.jsdelivr.net/npm/yjzan2020/other/img/wxqr-placeholder.png');
 	background-size: 35%;
 	background-repeat: no-repeat;
 	background-position: center center;

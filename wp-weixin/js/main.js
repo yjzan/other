@@ -206,8 +206,10 @@ jQuery( function( $ ) {
         nonceStr: WP_Weixin.weixin.nonceStr,
         signature: WP_Weixin.weixin.signature,
         jsApiList: [
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
+          //  'onMenuShareTimeline',
+            //'onMenuShareAppMessage',
+            'updateTimelineShareData',
+            'updateAppMessageShareData',
             'startRecord',
             'stopRecord',
             'onVoiceRecordEnd',
@@ -247,7 +249,7 @@ jQuery( function( $ ) {
         } );
 
         if ( WP_Weixin.share ) {
-            wx.onMenuShareTimeline( {
+            wx.updateTimelineShareData( {  //onMenuShareTimeline
                 title: WP_Weixin.share.title,
                 link: WP_Weixin.share.link,
                 imgUrl: WP_Weixin.share.imgUrl,
@@ -259,7 +261,7 @@ jQuery( function( $ ) {
                 }
             } );
 
-            wx.onMenuShareAppMessage( {
+            wx.updateAppMessageShareData( { //onMenuShareAppMessage
                 title: WP_Weixin.share.title,
                 desc: WP_Weixin.share.desc,
                 link: WP_Weixin.share.link,
@@ -273,4 +275,24 @@ jQuery( function( $ ) {
             } );
         }
     } );
+
+    wx.miniProgram.getEnv(function(res) {
+        if(res.miniprogram){
+            $('.yjzmykefu').on("click", function () {
+                wx.miniProgram.navigateTo({url: '/pages/wxchat/wxchat'});
+                return false;
+            });
+
+            $(".yjzwxplogin.yjzUserNotLogin").on("click", function () {
+                var yjzurl = '/pages/login/index?yjzurl=' + $(this).attr('data-url');
+                wx.miniProgram.navigateTo({url: yjzurl});
+                return false;
+            });
+
+        }else{
+           // alert('表在公众号里');
+            //false代表在公众号里
+        }
+    });
+
 } );

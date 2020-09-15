@@ -3853,19 +3853,19 @@ S2.define('select2/data/minimumInputLength',[
 
   MinimumInputLength.prototype.query = function (decorated, params, callback) {
     params.term = params.term || '';
+    var _minimumInputLength = this.minimumInputLength>2?2:this.minimumInputLength;
+    if (params.term.length < _minimumInputLength) {
+          this.trigger('results:message', {
+              message: 'inputTooShort',
+              args: {
+                  minimum: _minimumInputLength,
+                  input: params.term,
+                  params: params
+              }
+          });
 
-    if (params.term.length < this.minimumInputLength) {
-      this.trigger('results:message', {
-        message: 'inputTooShort',
-        args: {
-          minimum: this.minimumInputLength,
-          input: params.term,
-          params: params
-        }
-      });
-
-      return;
-    }
+          return;
+      }
 
     decorated.call(this, params, callback);
   };

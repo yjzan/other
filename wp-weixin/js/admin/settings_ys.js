@@ -151,7 +151,7 @@ jQuery( document ).ready( function( $ ) {
         $(".wp_weixin-ys_partner_id-field").hide();
         $(".wp_weixin-ys_seller_id-field").hide();
         $(".wp_weixin-ys_seller_name-field").hide();
-        $(".wp_weixin-ys_wx_appid-field").hide();
+      //  $(".wp_weixin-ys_wx_appid-field").hide();
         $(".wp_weixin-yz_fzzq-field").hide();
         $(".wp_weixin-ys_others_ysshinfo-field").hide();
         $(".wp_weixin-ys_others_ysshinfo-field").hide();
@@ -177,7 +177,7 @@ jQuery( document ).ready( function( $ ) {
         $(".wp_weixin-ys_partner_id-field").hide();
         $(".wp_weixin-ys_seller_id-field").hide();
         $(".wp_weixin-ys_seller_name-field").hide();
-        $(".wp_weixin-ys_wx_appid-field").hide();
+      //  $(".wp_weixin-ys_wx_appid-field").hide();
         $(".wp_weixin-yz_fzzq-field").hide();
         $(".wp_weixin-ys_others_ysshinfo-field").hide();
         $(".wp_weixin-ys_others_ysshinfo-field").hide();
@@ -202,7 +202,7 @@ jQuery( document ).ready( function( $ ) {
         $(".wp_weixin-ys_partner_id-field").hide();
         $(".wp_weixin-ys_seller_id-field").hide();
         $(".wp_weixin-ys_seller_name-field").hide();
-        $(".wp_weixin-ys_wx_appid-field").hide();
+      //  $(".wp_weixin-ys_wx_appid-field").hide();
         $(".wp_weixin-yz_fzzq-field").hide();
         $(".wp_weixin-ys_others_ysshinfo-field").hide();
         $(".wp_weixin-ys_others_ysshinfo-field").hide();
@@ -216,7 +216,7 @@ jQuery( document ).ready( function( $ ) {
         $(".wp_weixin-ys_partner_id-field").show();
         $(".wp_weixin-ys_seller_id-field").show();
         $(".wp_weixin-ys_seller_name-field").show();
-        $(".wp_weixin-ys_wx_appid-field").show();
+       // $(".wp_weixin-ys_wx_appid-field").show();
         $(".wp_weixin-yz_fzzq-field").show();
         $(".wp_weixin-ys_others_ysshinfo-field").show();
         $(".wp_weixin-ys_others_ysshinfo-field").show();
@@ -242,7 +242,7 @@ jQuery( document ).ready( function( $ ) {
         $(".wp_weixin-ys_partner_id-field").hide();
         $(".wp_weixin-ys_seller_id-field").hide();
         $(".wp_weixin-ys_seller_name-field").hide();
-        $(".wp_weixin-ys_wx_appid-field").hide();
+    //    $(".wp_weixin-ys_wx_appid-field").hide();
         $(".wp_weixin-yz_fzzq-field").hide();
         $(".wp_weixin-ys_others_ysshinfo-field").hide();
         $(".wp_weixin-ys_others_ysshinfo-field").hide();
@@ -300,7 +300,7 @@ jQuery( document ).ready( function( $ ) {
             $(".wp_weixin-ys_partner_id-field").hide();
             $(".wp_weixin-ys_seller_id-field").hide();
             $(".wp_weixin-ys_seller_name-field").hide();
-            $(".wp_weixin-ys_wx_appid-field").hide();
+          //  $(".wp_weixin-ys_wx_appid-field").hide();
             $(".wp_weixin-yz_fzzq-field").hide();
             $(".wp_weixin-ys_others_ysshinfo-field").hide();
             $(".wp_weixin-ys_others_ysshinfo-field").hide();
@@ -333,6 +333,8 @@ jQuery( document ).ready( function( $ ) {
 
     $(".wp_weixin-pem_path-field input").attr({ readonly: 'true' });
     $(".wp_weixin-ys_pem_path-field input").attr({ readonly: 'true' });
+    $(".wp_weixin-gzh_vert_path-field input").attr({ readonly: 'true' });
+    $(".wp_weixin-mini_vert_path-field input").attr({ readonly: 'true' });
 
     $('#pem_wx_cert_file').on('change',function (e) {
         var fileArray = document.getElementById('pem_wx_cert_file').files[0];
@@ -358,7 +360,7 @@ jQuery( document ).ready( function( $ ) {
 
                 }else
                 {
-                    alert('上传失败，'+ res.msg)
+                    alert('上传失败，'+ res.msg);
                 }
             },
             error: function () {
@@ -389,7 +391,6 @@ jQuery( document ).ready( function( $ ) {
                 {
                     alert('上传成功');
                     $('.wp_weixin-ys_pem_path-field input').val(res.path);
-
                 }else
                 {
                     alert('上传失败，'+ res.msg);
@@ -400,6 +401,73 @@ jQuery( document ).ready( function( $ ) {
             }
         });
 
+    });
+
+
+    $('#gzh_vert_file').on('change',function (e) {
+        var fileArray = document.getElementById('gzh_vert_file').files[0];
+        var formData = new FormData();
+        formData.append("fileArray", fileArray);
+        formData.append("action", 'yjz_upload_file');
+        formData.append("ctype", 'gzhvert');
+
+        $.ajax({
+            url: "/wp-admin/admin-ajax.php",//传向后台服务器文件
+            type: 'POST',    //传递方法
+            data: formData,  //传递的数据
+            dataType : 'json',  //传递数据的格式
+            async:false, //这是重要的一步，防止重复提交的
+            cache: false,  //设置为false，上传文件不需要缓存。
+            contentType: false,//设置为false,因为是构造的FormData对象,所以这里设置为false。
+            processData: false,//设置为false,因为data值是FormData对象，不需要对数据做处理。
+            success: function (res){
+                if(res.status=='1')
+                {
+                    alert('上传成功');
+                    $('.wp_weixin-gzh_vert_path-field input').val(res.path);
+                }else
+                {
+                    alert('上传失败，'+ res.msg);
+                }
+            },
+            error: function () {
+                alert("上传错误！");
+            }
+        });
+    });
+
+
+
+    $('#mini_vert_file').on('change',function (e) {
+        var fileArray = document.getElementById('mini_vert_file').files[0];
+        var formData = new FormData();
+        formData.append("fileArray", fileArray);
+        formData.append("action", 'yjz_upload_file');
+        formData.append("ctype", 'minivert');
+
+        $.ajax({
+            url: "/wp-admin/admin-ajax.php",//传向后台服务器文件
+            type: 'POST',    //传递方法
+            data: formData,  //传递的数据
+            dataType : 'json',  //传递数据的格式
+            async:false, //这是重要的一步，防止重复提交的
+            cache: false,  //设置为false，上传文件不需要缓存。
+            contentType: false,//设置为false,因为是构造的FormData对象,所以这里设置为false。
+            processData: false,//设置为false,因为data值是FormData对象，不需要对数据做处理。
+            success: function (res){
+                if(res.status=='1')
+                {
+                    alert('上传成功');
+                    $('.wp_weixin-mini_vert_path-field input').val(res.path);
+                }else
+                {
+                    alert('上传失败，'+ res.msg);
+                }
+            },
+            error: function () {
+                alert("上传错误！");
+            }
+        });
     });
 
 
